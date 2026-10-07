@@ -74,7 +74,7 @@
   }
 
   // Pages that make up the build. Each one is an equal share of the house.
-  var PAGES = ["index", "features", "neighbours", "about", "contact", "demo/notice", "demo/project"];
+  var PAGES = ["index", "features", "neighbours", "about", "contact", "demo/notice", "demo/project", "demo/app"];
   var STORE_KEY = "obiab-build-v1";
   var memoryStore = {};
 
@@ -108,6 +108,18 @@
   function clamp(n) {
     return n < 0 ? 0 : n > 1 ? 1 : n;
   }
+
+  // Draw a static house at a given build progress (0–1) into an element.
+  // Used by the app mockups.
+  function drawHouse(el, progress) {
+    var h = buildSvg("static-house", true);
+    h.paths.forEach(function (p, i) {
+      var part = PARTS[i];
+      p.style.strokeDashoffset = String(1 - clamp((progress - part.start) / (part.end - part.start)));
+    });
+    el.appendChild(h.svg);
+  }
+  window.OBIABHouse = { draw: drawHouse };
 
   document.addEventListener("DOMContentLoaded", function () {
     // Hero art: draws once on load. Where the hero has a project card (home),

@@ -14,9 +14,11 @@ about.html            About + "not legal or building advice"
 contact.html          Waitlist (mailto form)
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
+demo/app.html         App mockups: dashboard, notify neighbours, asset protection photos, dilapidation street map
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
+js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map)
 assets/               Logo + favicon
 ```
 
