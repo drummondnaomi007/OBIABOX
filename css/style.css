@@ -1654,3 +1654,172 @@ table.compliance-table th {
   background: var(--brand-600);
   color: var(--white);
 }
+
+/* Trades, quotes & contracts mockups */
+.tb-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #0B6E8F;
+  background: #e8f1f6;
+  border-radius: 999px;
+  padding: 1px 6px;
+  margin-left: 4px;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+.mock-table {
+  font-size: 0.85rem;
+  min-width: 720px;
+}
+
+.mock-table .pill {
+  white-space: nowrap;
+}
+
+.mock-quotes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.mock-quote {
+  position: relative;
+  background: var(--white);
+  border: 1px solid #EFE4DB;
+  border-radius: 12px;
+  padding: 18px 16px 16px;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.mock-quote.best {
+  border: 2px solid var(--brand-600);
+}
+
+.mock-quote.awarded {
+  border: 2px solid var(--green);
+  box-shadow: 0 0 0 4px var(--green-50);
+}
+
+.mock-quote.passed {
+  opacity: 0.55;
+}
+
+.mock-q-flag {
+  position: absolute;
+  top: -11px;
+  left: 14px;
+  background: var(--brand-600);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.mock-q-name {
+  font-weight: 700;
+  color: var(--ink-900);
+}
+
+.mock-q-price {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--ink-900);
+  margin: 4px 0 10px;
+}
+
+.mock-quote dl {
+  margin: 0 0 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 10px;
+  font-size: 0.83rem;
+}
+
+.mock-quote dt {
+  color: var(--muted);
+}
+
+.mock-quote dd {
+  margin: 0;
+}
+
+.mock-award {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--brand-600);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.mock-quote .mock-award {
+  width: 100%;
+}
+
+.mock-quote.awarded .mock-award {
+  background: var(--green);
+}
+
+.mock-award.ghost {
+  background: var(--white);
+  color: var(--brand-600);
+  border: 1.5px solid var(--brand-600);
+}
+
+.mock-award:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+.mock-money {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.mock-money > div {
+  background: var(--white);
+  border: 1px solid #EFE4DB;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.mock-money .mock-label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.mock-money strong {
+  font-size: 1.2rem;
+  color: var(--ink-900);
+}
+
+.mock-paidbar {
+  height: 8px;
+  border-radius: 999px;
+  background: #EFE4DB;
+  overflow: hidden;
+}
+
+.mock-paidbar span {
+  display: block;
+  height: 100%;
+  background: var(--brand-600);
+}
+
+@media (max-width: 860px) {
+  .mock-quotes {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .mock-money {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

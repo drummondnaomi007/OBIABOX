@@ -44,6 +44,55 @@ document.addEventListener("DOMContentLoaded", function () {
     el.appendChild(svg);
   });
 
+  // Quote comparison: award a quote.
+  var quotes = document.querySelector("[data-quotes]");
+  if (quotes) {
+    var awardMsg = document.querySelector("[data-award-msg]");
+    var awardStatus = document.querySelector("[data-award-status]");
+    quotes.addEventListener("click", function (e) {
+      var btn = e.target.closest(".mock-award");
+      if (!btn) return;
+      var chosen = btn.closest(".mock-quote");
+      quotes.querySelectorAll(".mock-quote").forEach(function (q) {
+        q.classList.toggle("awarded", q === chosen);
+        q.classList.toggle("passed", q !== chosen);
+        q.querySelector(".mock-award").textContent = q === chosen ? "Awarded ✓" : "Award";
+      });
+      var name = chosen.querySelector(".mock-q-name").firstChild.textContent.trim();
+      var risky = chosen.querySelector(".pill-red");
+      awardStatus.textContent = "Awarded";
+      awardStatus.className = "pill " + (risky ? "pill-red" : "pill-green");
+      awardMsg.textContent = risky
+        ? "Awarded to " + name + ", but they can't start until they provide proof of insurance. Their quote also leaves out materials, so check your budget."
+        : "Awarded to " + name + ". A contract record has been started from the accepted quote, and the other trades get a thank-you note.";
+    });
+  }
+
+  // Contract admin: approve or query a variation.
+  var approve = document.querySelector("[data-approve]");
+  var query = document.querySelector("[data-query]");
+  if (approve && query) {
+    var note = document.querySelector("[data-var-note]");
+    var pill = document.querySelector("[data-var-pill]");
+    var actions = document.querySelector("[data-var-actions]");
+    approve.addEventListener("click", function () {
+      note.textContent = "Approved in writing today";
+      pill.className = "pill pill-green";
+      document.querySelector("[data-var-total]").textContent = "+$1,250";
+      document.querySelector("[data-revised]").textContent = "$37,150";
+      actions.innerHTML = '<span class="mock-muted">Approval saved to the contract record and sent to the trade.</span>';
+      var status = document.querySelector("[data-contract-status]");
+      if (status) {
+        status.textContent = "Up to date";
+        status.className = "pill pill-green";
+      }
+    });
+    query.addEventListener("click", function () {
+      note.textContent = "Query sent to Northside Framing · waiting for reply";
+      actions.innerHTML = "<span class=\"mock-muted\">Work on V2 shouldn’t start until it’s approved.</span>";
+    });
+  }
+
   // Street map: click a lot to show its record.
   var card = document.querySelector("[data-lot-card]");
   if (card) {

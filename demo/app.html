@@ -39,6 +39,9 @@
         <a href="#notify">Notify neighbours</a>
         <a href="#asset">Asset protection</a>
         <a href="#street">Dilapidation map</a>
+        <a href="#trades-register">Trades register</a>
+        <a href="#quotes">Compare quotes</a>
+        <a href="#contract">Contract admin</a>
       </nav>
     </div>
   </section>
@@ -60,6 +63,7 @@
             <a class="on">Dashboard</a>
             <a>Compliance</a>
             <a>Inspections</a>
+            <a>Trades &amp; contracts</a>
             <a>Neighbours</a>
             <a>Asset protection</a>
             <a>Dilapidation</a>
@@ -89,6 +93,7 @@
                 <ul class="mock-list">
                   <li><span>Book frame inspection</span><span class="pill pill-amber">Fri</span></li>
                   <li><span>Dilapidation report · 14 Smith St</span><span class="pill pill-red">Overdue</span></li>
+                  <li><span>Approve variation V2 · framing</span><span class="pill pill-amber">Today</span></li>
                   <li><span>Notify neighbours · frame delivery</span><span class="pill pill-amber">3 days</span></li>
                   <li><span>Public liability renewal</span><span class="pill pill-green">62 days</span></li>
                 </ul>
@@ -258,6 +263,181 @@
           <p data-lot-status>Pre-works report needed before demolition</p>
           <p class="mock-muted" data-lot-sub>Subscribed: email</p>
           <div class="mock-btn small">Open record</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Trades register -->
+  <section id="trades-register">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Mockup 5 · Trades register</span>
+        <h2>Every trade, checked before they start</h2>
+        <p>One list of everyone working on your site, with their licence, insurance and WorkCover status, plus the certificates you need from them at the end.</p>
+      </div>
+
+      <div class="mock-browser">
+        <div class="mock-bar"><span></span><span></span><span></span><em>Trades &amp; contracts · 12 Smith St</em></div>
+        <div class="mock-main solo">
+          <div class="mock-head">
+            <div>
+              <div class="mock-kicker">7 trades · 6 contracts signed · 1 out to tender</div>
+              <h3>Trades register</h3>
+            </div>
+            <span class="pill pill-red">1 trade can't start yet</span>
+          </div>
+          <div class="table-wrap">
+            <table class="register mock-table">
+              <thead>
+                <tr><th>Trade</th><th>Business</th><th>Licence / registration</th><th>Public liability</th><th>WorkCover</th><th>End-of-job certificate</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Excavation</td><td>Example Earthworks <span class="tb-badge" title="Status shared from Tradies Bureau">TB ✓</span></td><td><span class="pill pill-green">Registered</span></td><td><span class="pill pill-green">Current</span></td><td><span class="pill pill-green">Current</span></td><td class="mock-muted">Not required</td></tr>
+                <tr><td>Concreting</td><td>Solid Slab Co</td><td><span class="pill pill-green">Registered</span></td><td><span class="pill pill-green">Current</span></td><td><span class="pill pill-green">Current</span></td><td class="mock-muted">Not required</td></tr>
+                <tr><td>Frame carpentry</td><td>Northside Framing <span class="tb-badge" title="Status shared from Tradies Bureau">TB ✓</span></td><td><span class="pill pill-green">Registered</span></td><td><span class="pill pill-amber">Expires 21 days</span></td><td><span class="pill pill-green">Current</span></td><td class="mock-muted">Not required</td></tr>
+                <tr><td>Plumbing</td><td>Flowright Plumbing <span class="tb-badge" title="Status shared from Tradies Bureau">TB ✓</span></td><td><span class="pill pill-green">Registered</span></td><td><span class="pill pill-green">Current</span></td><td><span class="pill pill-green">Current</span></td><td><span class="pill pill-amber">Compliance cert due</span></td></tr>
+                <tr><td>Electrical</td><td>Bright Spark Electrical</td><td><span class="pill pill-green">Licensed</span></td><td><span class="pill pill-red">Not provided</span></td><td><span class="pill pill-green">Current</span></td><td><span class="pill pill-amber">Safety cert due</span></td></tr>
+                <tr><td>Roofing</td><td>Top Deck Roofing</td><td><span class="pill pill-green">Registered</span></td><td><span class="pill pill-green">Current</span></td><td><span class="pill pill-green">Current</span></td><td><span class="pill pill-amber">Compliance cert due</span></td></tr>
+                <tr><td>Waterproofing</td><td><em class="mock-muted">Out to tender</em></td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mock-muted" style="margin:12px 0 0;"><span class="tb-badge">TB ✓</span> means the trade shares live compliance status from Tradies Bureau, so you don't have to chase paperwork.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Compare quotes -->
+  <section class="section-alt" id="quotes">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Mockup 6 · Compare quotes</span>
+        <h2>Like-for-like quotes, then award</h2>
+        <p>Every trade quotes against the same plans and scope, so the comparison is fair. The cheapest isn't always the best: here the lowest quote leaves out materials. Click Award to try it.</p>
+      </div>
+
+      <div class="mock-browser">
+        <div class="mock-bar"><span></span><span></span><span></span><em>Tender · Frame carpentry</em></div>
+        <div class="mock-main solo">
+          <div class="mock-head">
+            <div>
+              <div class="mock-kicker">Plans rev C · Engineering · Scope v2 · sent to 4 trades</div>
+              <h3>Frame carpentry: 3 quotes in</h3>
+            </div>
+            <span class="pill pill-green" data-award-status>Closes Fri</span>
+          </div>
+          <div class="mock-quotes" data-quotes>
+            <div class="mock-quote">
+              <div class="mock-q-name">Example Carpentry</div>
+              <div class="mock-q-price">$38,400</div>
+              <dl>
+                <dt>Includes</dt><dd>Labour + materials</dd>
+                <dt>Excludes</dt><dd>Crane hire</dd>
+                <dt>Start</dt><dd>12 Jan · 4 weeks</dd>
+                <dt>Compliance</dt><dd><span class="pill pill-green">All current</span></dd>
+                <dt>Valid until</dt><dd>28 Feb</dd>
+              </dl>
+              <button type="button" class="mock-award">Award</button>
+            </div>
+            <div class="mock-quote best">
+              <div class="mock-q-flag">Best value</div>
+              <div class="mock-q-name">Northside Framing <span class="tb-badge">TB ✓</span></div>
+              <div class="mock-q-price">$35,900</div>
+              <dl>
+                <dt>Includes</dt><dd>Labour + materials + crane</dd>
+                <dt>Excludes</dt><dd>Nothing listed</dd>
+                <dt>Start</dt><dd>19 Jan · 3 weeks</dd>
+                <dt>Compliance</dt><dd><span class="pill pill-amber">Insurance renews soon</span></dd>
+                <dt>Valid until</dt><dd>14 Mar</dd>
+              </dl>
+              <button type="button" class="mock-award">Award</button>
+            </div>
+            <div class="mock-quote">
+              <div class="mock-q-name">Budget Frames</div>
+              <div class="mock-q-price">$29,750</div>
+              <dl>
+                <dt>Includes</dt><dd>Labour only</dd>
+                <dt>Excludes</dt><dd><strong>Timber, fixings, crane</strong></dd>
+                <dt>Start</dt><dd>Not stated</dd>
+                <dt>Compliance</dt><dd><span class="pill pill-red">No insurance on file</span></dd>
+                <dt>Valid until</dt><dd>7 days</dd>
+              </dl>
+              <button type="button" class="mock-award">Award</button>
+            </div>
+          </div>
+          <p class="mock-muted" data-award-msg style="margin:14px 0 0;">Tip: ask the trade with missing items to re-quote against the full scope before you decide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Contract admin -->
+  <section id="contract">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Mockup 7 · Contract admin</span>
+        <h2>What you agreed, what you've paid</h2>
+        <p>Each trade gets a contract record. Payments line up with stages and wait for the matching inspection to pass. Changes are written down and approved before the work happens.</p>
+      </div>
+
+      <div class="mock-browser">
+        <div class="mock-bar"><span></span><span></span><span></span><em>Contract · Northside Framing</em></div>
+        <div class="mock-main solo">
+          <div class="mock-head">
+            <div>
+              <div class="mock-kicker">Frame carpentry · signed 8 Jan</div>
+              <h3>Northside Framing</h3>
+            </div>
+            <span class="pill pill-amber" data-contract-status>1 variation to approve</span>
+          </div>
+
+          <div class="mock-money">
+            <div><span class="mock-label">Contract</span><strong>$35,900</strong></div>
+            <div><span class="mock-label">Variations</span><strong data-var-total>+$850</strong></div>
+            <div><span class="mock-label">Revised total</span><strong data-revised>$36,750</strong></div>
+            <div><span class="mock-label">Paid</span><strong>$17,950</strong></div>
+          </div>
+          <div class="mock-paidbar"><span style="width:49%"></span></div>
+
+          <div class="mock-grid" style="margin-top:18px;">
+            <div class="mock-panel">
+              <div class="mock-label">Payment schedule</div>
+              <ul class="mock-list compact">
+                <li><span>Deposit</span><span class="pill pill-green">Paid $1,795</span></li>
+                <li><span>Wall frames up</span><span class="pill pill-green">Paid $16,155</span></li>
+                <li><span>Frame complete<br><small class="mock-muted">Waits for frame inspection</small></span><span class="pill pill-amber">Inspection Fri</span></li>
+                <li><span>Practical completion</span><span class="mock-muted">$8,975</span></li>
+              </ul>
+            </div>
+            <div class="mock-panel">
+              <div class="mock-label">Variations</div>
+              <ul class="mock-list compact">
+                <li><span>V1 · Larger lintel, rear opening<br><small class="mock-muted">Approved in writing 12 Jan</small></span><span class="pill pill-green">+$850</span></li>
+                <li data-variation><span>V2 · Extra noggins for kitchen cabinets<br><small class="mock-muted" data-var-note>Requested by trade 3 Feb · photo attached</small></span><span class="pill pill-amber" data-var-pill>+$400</span></li>
+              </ul>
+              <div class="btn-row" style="margin-top:10px;" data-var-actions>
+                <button type="button" class="mock-award" data-approve>Approve V2</button>
+                <button type="button" class="mock-award ghost" data-query>Query</button>
+              </div>
+            </div>
+            <div class="mock-panel">
+              <div class="mock-label">Documents</div>
+              <ul class="mock-list compact">
+                <li><span>Signed contract</span><span class="mock-muted">PDF · 8 Jan</span></li>
+                <li><span>Accepted quote</span><span class="mock-muted">PDF · 2 Jan</span></li>
+                <li><span>Public liability certificate</span><span class="pill pill-amber">Renews 21 days</span></li>
+                <li><span>Plans rev C · Engineering</span><span class="mock-muted">Issued for construction</span></li>
+              </ul>
+            </div>
+            <div class="mock-panel">
+              <div class="mock-label">Budget · whole build</div>
+              <div class="mock-score"><strong>$412k</strong><span>committed of $440k budget</span></div>
+              <div class="mock-paidbar"><span style="width:94%"></span></div>
+              <p class="mock-muted" style="margin:10px 0 0;">6 contracts signed · 1 trade out to tender · $6,350 in approved variations so far</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -8,17 +8,17 @@ This repo is the marketing site and clickable mock-ups. Like Tradies Bureau, it'
 
 ```
 index.html            Home
-features.html         The four tools: compliance, neighbours, asset protection, dilapidation
+features.html         The five tools: compliance, neighbours, asset protection, dilapidation, trades/quotes/contracts
 neighbours.html       How neighbour notifications work
 about.html            About + "not legal or building advice"
 contact.html          Waitlist (mailto form)
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
-demo/app.html         App mockups: dashboard, notify neighbours, asset protection photos, dilapidation street map
+demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
-js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map)
+js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation)
 assets/               Logo + favicon
 ```
 
@@ -63,6 +63,12 @@ The app reuses the Tradies Bureau Compliance Tracker pattern: **an item with dat
 | Dilapidation report | neighbour property, pre-works report (date, author, PDF), copy given to neighbour, access refused note, post-works report | pre-works report before demolition or excavation; post-works report at handover |
 | Activity | date/time window, description, disruption type (noise, trucks, road/footpath closure, crane) | notify subscribers X days before |
 | Notification log | activity, channel (SMS / email / print), sent at, recipient count | — |
+| Trade | business, trade type, licence/registration, public liability, WorkCover, ABN, Tradies Bureau link (optional) | before any document lapses; block start if missing |
+| Tender package | trade type, plans/scope documents, invited trades, closing date | quotes due |
+| Quote | trade, price, inclusions, exclusions, start date, duration, valid until | before quote expires |
+| Contract | trade, accepted quote, signed contract, contract sum, payment schedule (each stage optionally waits for an inspection) | payment due when linked inspection passes |
+| Variation | contract, description, cost, photos, requested by, approved in writing (date) | approve before work starts |
+| End-of-job certificate | trade, type (plumbing compliance, electrical safety, waterproofing), document | collect before final payment |
 
 ### Neighbour notification flow
 
