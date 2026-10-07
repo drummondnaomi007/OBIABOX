@@ -15,12 +15,12 @@ about.html            About + "not legal or building advice"
 contact.html          Waitlist (mailto form)
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
-demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault, letterbox drop map
+demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault, letterbox drop map, surveyor shared view
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
 js/guides.js          Guides page: ticks saved in localStorage, progress, print a single guide
-js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow, document vault, letterbox drop map)
+js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow, document vault, letterbox drop map, surveyor view)
 assets/               Logo + favicon
 ```
 

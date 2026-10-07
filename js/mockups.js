@@ -549,6 +549,65 @@ document.addEventListener("DOMContentLoaded", function () {
     render();
   }
 
+  // Surveyor's shared view.
+  var sv = document.querySelector("[data-sv]");
+  if (sv) {
+    var svDocs = sv.querySelector("[data-sv-docs]");
+    svDocs.addEventListener("click", function (e) {
+      var btn = e.target.closest("button");
+      if (!btn) return;
+      svDocs.querySelectorAll("button").forEach(function (b) {
+        b.classList.toggle("on", b === btn);
+      });
+      sv.querySelector("[data-sv-doc]").textContent = btn.getAttribute("data-doc");
+      sv.querySelector("[data-sv-meta]").textContent = btn.getAttribute("data-meta");
+    });
+
+    var requests = sv.querySelector("[data-sv-requests]");
+    sv.querySelector("[data-sv-request]").addEventListener("click", function (e) {
+      var btn = e.target.closest("button");
+      if (!btn || btn.disabled) return;
+      btn.disabled = true;
+      btn.classList.add("on");
+      var li = document.createElement("li");
+      var name = document.createElement("span");
+      name.textContent = btn.textContent;
+      var pill = document.createElement("span");
+      pill.className = "pill pill-amber";
+      pill.textContent = "Requested · Sam notified";
+      li.appendChild(name);
+      li.appendChild(pill);
+      requests.appendChild(li);
+    });
+
+    var thread = sv.querySelector("[data-sv-thread]");
+    var input = sv.querySelector("[data-sv-input]");
+    function sendNote() {
+      var text = input.value.trim();
+      if (!text) return;
+      var li = document.createElement("li");
+      li.className = "mine";
+      var who = document.createElement("strong");
+      who.textContent = "Example Building Surveying";
+      var when = document.createElement("small");
+      when.textContent = "Just now";
+      li.appendChild(who);
+      li.appendChild(document.createTextNode(" " + text + " "));
+      li.appendChild(when);
+      thread.appendChild(li);
+      input.value = "";
+    }
+    sv.querySelector("[data-sv-send]").addEventListener("click", sendNote);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") sendNote();
+    });
+
+    sv.querySelector("[data-sv-zip]").addEventListener("click", function () {
+      this.textContent = "Demo: 4 files";
+      this.disabled = true;
+    });
+  }
+
   // Street map: click a lot to show its record.
   var card = document.querySelector("[data-lot-card]");
   if (card) {

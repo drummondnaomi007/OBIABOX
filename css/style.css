@@ -2731,3 +2731,200 @@ table.compliance-table th {
     max-width: 320px;
   }
 }
+
+/* Surveyor's shared view mockup */
+.mock-sv {
+  background: #FBF8F5;
+}
+
+.mock-sv-banner {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  background: #e8f1f6;
+  color: #0B4F66;
+  font-size: 0.86rem;
+  border-bottom: 1px solid #d3e4ee;
+}
+
+.mock-sv-grid {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px 20px 20px;
+}
+
+.mock-sv-side,
+.mock-sv-main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.mock-sv-title {
+  margin: 0 0 10px;
+  color: var(--ink-900);
+}
+
+.mock-sv-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.mock-sv-facts dt {
+  color: var(--muted);
+}
+
+.mock-sv-facts dd {
+  margin: 0;
+}
+
+.mock-sv-packhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.mock-sv-packhead .mock-award.small {
+  margin-left: 0;
+}
+
+.mock-sv-docs {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.mock-sv-docs button {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-900);
+  padding: 10px 12px;
+  border: 1.5px solid #EFE4DB;
+  border-radius: 10px;
+  background: var(--white);
+  cursor: pointer;
+}
+
+.mock-sv-docs button small {
+  display: block;
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.mock-sv-docs button.on {
+  border-color: var(--brand-600);
+  background: var(--brand-50);
+}
+
+.mock-sv-docs button:focus-visible,
+.mock-sv-note .mock-award:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+.mock-sv-preview {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 10px;
+  background: #F4F1EE;
+}
+
+.mock-sv-page {
+  flex: none;
+  width: 130px;
+  height: auto;
+}
+
+.mock-sv-page rect {
+  fill: var(--white);
+  stroke: #D9CFC6;
+}
+
+.mock-sv-page path {
+  fill: none;
+  stroke: #C9CED3;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.mock-sv-page path.stamp {
+  stroke: var(--green);
+  stroke-width: 2;
+}
+
+.mock-chips button:disabled {
+  cursor: default;
+}
+
+.mock-sv-note {
+  display: flex;
+  gap: 8px;
+}
+
+.mock-sv-note .mock-award.small {
+  margin-left: 0;
+}
+
+.mock-sv-thread {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mock-sv-thread li {
+  background: #F4F1EE;
+  border-radius: 12px 12px 12px 4px;
+  padding: 9px 12px;
+  font-size: 0.86rem;
+  max-width: 90%;
+}
+
+.mock-sv-thread li.mine {
+  align-self: flex-end;
+  background: #e8f1f6;
+  border-radius: 12px 12px 4px 12px;
+}
+
+.mock-sv-thread strong {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.mock-sv-thread small {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+@media (max-width: 860px) {
+  .mock-sv-grid {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+  .mock-sv-docs {
+    grid-template-columns: 1fr;
+  }
+}

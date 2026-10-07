@@ -46,6 +46,7 @@
         <a href="#inspection">Book an inspection</a>
         <a href="#vault">Document vault</a>
         <a href="#drop">Letterbox drop</a>
+        <a href="#surveyor">Surveyor's view</a>
       </nav>
     </div>
   </section>
@@ -566,7 +567,7 @@
               <label><input type="checkbox" checked> Inspections</label>
               <label><input type="checkbox" checked> Plans &amp; engineering</label>
               <label><input type="checkbox"> Trades &amp; contracts</label>
-              <div class="mock-muted" style="margin:8px 0;">Link expires in 7 days. You can switch it off any time.</div>
+              <div class="mock-muted" style="margin:8px 0;">Link expires in 7 days. You can switch it off any time. <a href="#surveyor">Preview what they'll see</a>.</div>
               <button type="button" class="mock-award small" data-copy>Copy link</button>
             </div>
 
@@ -636,6 +637,107 @@
             <p class="mock-muted" style="margin:0;" data-sub-names></p>
           </div>
           <div class="mock-toast" data-drop-toast hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Surveyor's shared view -->
+  <section id="surveyor">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Mockup 11 · Surveyor's view</span>
+        <h2>What your building surveyor sees</h2>
+        <p>The read-only link from the vault opens this page. No login, no app to install. It shows only the folders you chose to share, with everything for the next inspection in one pack. Try opening a document, requesting one, or leaving a note.</p>
+      </div>
+
+      <div class="mock-browser">
+        <div class="mock-bar"><span></span><span></span><span></span><em>🔒 Shared with Example Building Surveying · read-only</em></div>
+        <div class="mock-sv" data-sv>
+          <div class="mock-sv-banner">
+            <span><strong>Shared by Sam Taylor, owner builder.</strong> Read-only. This link expires in 7 days.</span>
+            <span class="mock-muted">Sam can see when this link is opened.</span>
+          </div>
+
+          <div class="mock-sv-grid">
+            <aside class="mock-sv-side">
+              <div class="mock-panel">
+                <div class="mock-label">Project</div>
+                <h3 class="mock-sv-title">12 Smith Street</h3>
+                <dl class="mock-sv-facts">
+                  <dt>Building permit</dt><dd>BP-0000</dd>
+                  <dt>Work</dt><dd>New single-storey dwelling</dd>
+                  <dt>Owner builder</dt><dd>Sam Taylor · 0400 000 000</dd>
+                  <dt>Certificate of Consent</dt><dd><span class="pill pill-green">On file</span></dd>
+                </dl>
+              </div>
+              <div class="mock-panel">
+                <div class="mock-label">Inspections</div>
+                <ol class="mock-stagelist">
+                  <li class="passed"><strong>Footings</strong><span>Passed 18 Nov</span></li>
+                  <li class="passed"><strong>Slab (pre-pour)</strong><span>Passed 2 Dec</span></li>
+                  <li class="current"><strong>Frame</strong><span>Booked Fri 1:30pm</span></li>
+                  <li><strong>Final</strong><span>Not yet booked</span></li>
+                </ol>
+              </div>
+              <div class="mock-panel">
+                <div class="mock-label">Shared folders</div>
+                <ul class="mock-list compact">
+                  <li><span>📄 Approvals &amp; permits</span><span class="mock-muted">4</span></li>
+                  <li><span>🔍 Inspections</span><span class="mock-muted">3</span></li>
+                  <li><span>📐 Plans &amp; engineering</span><span class="mock-muted">3</span></li>
+                </ul>
+                <p class="mock-muted" style="margin:8px 0 0;">Superseded plans are hidden. Contracts, insurance and neighbour records aren't shared.</p>
+              </div>
+            </aside>
+
+            <div class="mock-sv-main">
+              <div class="mock-panel">
+                <div class="mock-sv-packhead">
+                  <div>
+                    <div class="mock-label">Frame inspection pack</div>
+                    <div class="mock-muted">Everything Sam has uploaded for Friday's visit</div>
+                  </div>
+                  <button type="button" class="mock-award ghost small" data-sv-zip>Download all</button>
+                </div>
+                <ul class="mock-sv-docs" data-sv-docs>
+                  <li><button type="button" class="on" data-doc="Roof truss design certificate" data-meta="Truss manufacturer · uploaded 3 Feb">📄 Roof truss design certificate<small>Uploaded 3 Feb</small></button></li>
+                  <li><button type="button" data-doc="Structural engineering" data-meta="Issued for construction · 4 Oct">📐 Structural engineering<small>Issued for construction</small></button></li>
+                  <li><button type="button" data-doc="Architectural plans rev C" data-meta="Current revision · 4 Oct">📐 Architectural plans rev C<small>Current revision</small></button></li>
+                  <li><button type="button" data-doc="Slab inspection: passed" data-meta="Your previous inspection · 2 Dec">🔍 Slab inspection: passed<small>2 Dec</small></button></li>
+                </ul>
+                <div class="mock-sv-preview" aria-live="polite">
+                  <svg viewBox="0 0 200 120" aria-hidden="true" class="mock-sv-page">
+                    <rect x="1" y="1" width="198" height="118" rx="4"/>
+                    <path d="M16 18 H120 M16 30 H90 M16 50 H184 M16 60 H184 M16 70 H160 M16 86 H184 M16 96 H140"/>
+                    <path class="stamp" d="M150 14 h34 v22 h-34 Z"/>
+                  </svg>
+                  <div>
+                    <strong data-sv-doc>Roof truss design certificate</strong>
+                    <div class="mock-muted" data-sv-meta>Truss manufacturer · uploaded 3 Feb</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mock-panel">
+                <div class="mock-label">Need something else?</div>
+                <div class="mock-chips" data-sv-request>
+                  <button type="button">Bracing layout</button>
+                  <button type="button">Tie-down schedule</button>
+                  <button type="button">Termite protection details</button>
+                </div>
+                <ul class="mock-list compact" data-sv-requests></ul>
+                <div class="mock-label" style="margin-top:14px;">Note for Sam</div>
+                <div class="mock-sv-note">
+                  <input type="text" class="mock-search" value="Please have the ladder at the rear for roof access." aria-label="Note for the owner builder" data-sv-input>
+                  <button type="button" class="mock-award small" data-sv-send>Send</button>
+                </div>
+                <ul class="mock-sv-thread" data-sv-thread>
+                  <li><strong>Sam Taylor</strong> Side gate's unlocked. Truss certificate and engineering are in the pack. <small>Yesterday</small></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
