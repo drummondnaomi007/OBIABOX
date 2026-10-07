@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Join the Waitlist — Owner Builder in a Box</title>
+<meta name="description" content="Join the Owner Builder in a Box waitlist or get in touch." />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.svg" alt="" class="brand-logo">
+      Owner Builder in a Box
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="features.html">Features</a></li>
+      <li><a href="neighbours.html">Neighbour Notices</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="contact.html" class="nav-cta">Join the waitlist</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Join the waitlist</span>
+      <h1>Building soon? Let's talk.</h1>
+      <p class="lede">Tell us a little about your project and we'll let you know when early access opens. Building surveyors, councils and trades who work with owner builders are welcome too.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container contact-grid">
+      <div>
+        <div class="contact-item">
+          <div class="icon">@</div>
+          <div>
+            <h3 style="margin:0 0 4px;color:var(--navy-900);">Email</h3>
+            <p style="margin:0;"><a href="mailto:hello@tradiesbureau.com">hello@tradiesbureau.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="icon">⌂</div>
+          <div>
+            <h3 style="margin:0 0 4px;color:var(--navy-900);">Starting in Victoria</h3>
+            <p style="margin:0;color:var(--muted);">Our first checklists follow Victorian requirements. Other states will follow.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">Waitlist</h3>
+        <p style="color:var(--muted);">This form opens your email app with the details filled in. Nothing is stored or sent anywhere else.</p>
+        <form class="form-stack" action="mailto:hello@tradiesbureau.com?subject=Owner%20Builder%20in%20a%20Box%20waitlist" method="post" enctype="text/plain">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required />
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+          <label for="suburb">Project suburb &amp; council</label>
+          <input id="suburb" name="suburb" type="text" />
+          <label for="stage">Where are you up to?</label>
+          <select id="stage" name="stage">
+            <option>Just researching</option>
+            <option>Getting permits / Certificate of Consent</option>
+            <option>Building now</option>
+            <option>I'm a surveyor, council or trade</option>
+          </select>
+          <label for="message">What's been the hardest part?</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+          <button type="submit" class="btn btn-primary">Join the waitlist</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Owner Builder in a Box</h4>
+        <p>Compliance, neighbour notices and site records for owner builders. A <a href="https://tradiesbureau.com">Tradies Bureau</a> product.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="neighbours.html">Neighbour notices</a></li>
+          <li><a href="demo/notice.html">Sample letterbox notice</a></li>
+          <li><a href="demo/project.html">Sample neighbour page</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@tradiesbureau.com">hello@tradiesbureau.com</a></li>
+          <li><a href="contact.html">Join the waitlist</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> Tradies Bureau. All rights reserved.</span>
+      <span>Not legal or building advice</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
