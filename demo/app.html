@@ -45,6 +45,7 @@
         <a href="#contract">Contract admin</a>
         <a href="#inspection">Book an inspection</a>
         <a href="#vault">Document vault</a>
+        <a href="#drop">Letterbox drop</a>
       </nav>
     </div>
   </section>
@@ -582,6 +583,59 @@
               <button type="button" class="mock-award ghost" data-download>Download build file</button>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Letterbox drop map -->
+  <section class="section-alt" id="drop">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Mockup 10 · Letterbox drop</span>
+        <h2>Walk the street, tap each letterbox</h2>
+        <p>Choose how far the notice goes, then tick off houses on your phone as you drop them. Neighbours who scan the QR code show up straight away, and the finished drop is saved as proof you gave notice. Tap the houses to try it.</p>
+      </div>
+
+      <div class="mock-drop" data-drop>
+        <div class="mock-phone">
+          <div class="mock-notch"></div>
+          <div class="mock-screen mock-drop-screen">
+            <div class="mock-phone-title">Letterbox drop</div>
+            <div class="mock-drop-progress"><strong data-drop-count></strong><span>dropped</span></div>
+            <div class="mock-paidbar"><span data-drop-bar></span></div>
+            <svg class="mock-drop-map" viewBox="0 0 380 460" role="group" aria-label="Map of Smith Street and Back Lane. Tap a house to mark its notice as dropped." data-drop-map>
+              <rect x="138" y="0" width="44" height="460" class="road"/>
+              <line x1="160" y1="0" x2="160" y2="460" class="road-line"/>
+              <text x="166" y="230" class="road-name" transform="rotate(90 166 230)">SMITH ST</text>
+              <rect x="300" y="0" width="20" height="460" class="road lane"/>
+              <text x="314" y="230" class="road-name small" transform="rotate(90 314 230)">BACK LN</text>
+            </svg>
+            <div class="mock-drop-legend">
+              <span><i class="todo"></i>To drop</span>
+              <span><i class="done"></i>Dropped</span>
+              <span><i class="sub"></i>Signed up</span>
+            </div>
+            <button type="button" class="mock-btn" data-drop-finish>Log this drop</button>
+          </div>
+        </div>
+
+        <div class="mock-drop-side">
+          <div class="mock-panel">
+            <div class="mock-label">Who gets a notice?</div>
+            <div class="mock-chips" data-drop-area>
+              <button type="button" data-area="next">Next door &amp; opposite</button>
+              <button type="button" class="on" data-area="block">The whole block</button>
+              <button type="button" data-area="wide">Wider (crane or road closure)</button>
+            </div>
+            <ul class="mock-list compact mock-drop-list" data-drop-list></ul>
+          </div>
+          <div class="mock-panel">
+            <div class="mock-label">Signed up from the QR code</div>
+            <div class="mock-score"><strong data-sub-count></strong><span>neighbours so far</span></div>
+            <p class="mock-muted" style="margin:0;" data-sub-names></p>
+          </div>
+          <div class="mock-toast" data-drop-toast hidden></div>
         </div>
       </div>
     </div>

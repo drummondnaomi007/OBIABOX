@@ -15,12 +15,12 @@ about.html            About + "not legal or building advice"
 contact.html          Waitlist (mailto form)
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
-demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault
+demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault, letterbox drop map
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
 js/guides.js          Guides page: ticks saved in localStorage, progress, print a single guide
-js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow, document vault)
+js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow, document vault, letterbox drop map)
 assets/               Logo + favicon
 ```
 
@@ -64,6 +64,7 @@ The app reuses the Tradies Bureau Compliance Tracker pattern: **an item with dat
 | Neighbour property | address, relationship (adjoining / opposite / rear), contact (opt-in only) | — |
 | Dilapidation report | neighbour property, pre-works report (date, author, PDF), copy given to neighbour, access refused note, post-works report | pre-works report before demolition or excavation; post-works report at handover |
 | Activity | date/time window, description, disruption type (noise, trucks, road/footpath closure, crane) | notify subscribers X days before |
+| Letterbox drop | area (next door / block / wider), houses in the drop, dropped (per house, timestamped), QR sign-ups | finish a partial drop |
 | Notification log | activity, channel (SMS / email / print), sent at, recipient count | — |
 | Trade | business, trade type, licence/registration, public liability, WorkCover, ABN, Tradies Bureau link (optional) | before any document lapses; block start if missing |
 | Tender package | trade type, plans/scope documents, invited trades, closing date | quotes due |

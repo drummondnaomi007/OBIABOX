@@ -382,6 +382,173 @@ document.addEventListener("DOMContentLoaded", function () {
     renderDocs();
   }
 
+  // Letterbox drop map.
+  var drop = document.querySelector("[data-drop]");
+  if (drop) {
+    var NS2 = "http://www.w3.org/2000/svg";
+    // Lots: left side odd, right side even, rear lots on Back Lane.
+    var LOTS = [];
+    [7, 9, 11, 13, 15, 17].forEach(function (n, i) {
+      LOTS.push({ id: "s" + n, label: String(n), addr: n + " Smith St", x: 18, y: 14 + i * 74, w: 110, h: 62 });
+    });
+    [8, 10, 12, 14, 16, 18].forEach(function (n, i) {
+      LOTS.push({ id: "s" + n, label: String(n), addr: n + " Smith St", x: 192, y: 14 + i * 74, w: 98, h: 62, project: n === 12 });
+    });
+    [1, 3, 5].forEach(function (n, i) {
+      LOTS.push({ id: "b" + n, label: String(n), addr: n + " Back Ln", x: 328, y: 88 + i * 74, w: 44, h: 62 });
+    });
+    var AREAS = {
+      next: ["s10", "s14", "s11", "s13", "b3"],
+      block: ["s7", "s9", "s11", "s13", "s15", "s8", "s10", "s14", "s16", "b1", "b3", "b5"],
+      wide: ["s7", "s9", "s11", "s13", "s15", "s17", "s8", "s10", "s14", "s16", "s18", "b1", "b3", "b5"]
+    };
+    var SUBS = { s10: true, s11: true, s15: true };
+    var dropped = { s8: true, s10: true, s14: true, s16: true, s11: true, s15: true };
+    var area = "block";
+
+    var map = drop.querySelector("[data-drop-map]");
+    var listEl2 = drop.querySelector("[data-drop-list]");
+    var toast2 = drop.querySelector("[data-drop-toast]");
+    var finish = drop.querySelector("[data-drop-finish]");
+
+    function inArea(id) {
+      return AREAS[area].indexOf(id) !== -1;
+    }
+
+    function say(msg) {
+      toast2.textContent = msg;
+      toast2.hidden = false;
+    }
+
+    function toggle(lot) {
+      if (lot.project) return;
+      if (!inArea(lot.id)) {
+        say(lot.addr + " isn't in this drop. Choose a wider area to include it.");
+        return;
+      }
+      dropped[lot.id] = !dropped[lot.id];
+      render();
+    }
+
+    var lotEls = {};
+    LOTS.forEach(function (lot) {
+      var g = document.createElementNS(NS2, "g");
+      var r = document.createElementNS(NS2, "rect");
+      r.setAttribute("x", lot.x);
+      r.setAttribute("y", lot.y);
+      r.setAttribute("width", lot.w);
+      r.setAttribute("height", lot.h);
+      r.setAttribute("rx", 6);
+      var t = document.createElementNS(NS2, "text");
+      t.setAttribute("x", lot.x + lot.w / 2);
+      t.setAttribute("y", lot.y + lot.h / 2 + (lot.project ? -2 : 6));
+      t.setAttribute("class", "lot-no");
+      t.textContent = lot.label;
+      g.appendChild(r);
+      g.appendChild(t);
+      if (lot.project) {
+        var sub = document.createElementNS(NS2, "text");
+        sub.setAttribute("x", lot.x + lot.w / 2);
+        sub.setAttribute("y", lot.y + lot.h / 2 + 16);
+        sub.setAttribute("class", "lot-sub");
+        sub.textContent = "YOU";
+        g.appendChild(sub);
+      } else {
+        // Letterbox dot on the street side of the lot.
+        var lx = lot.x < 138 ? lot.x + lot.w - 8 : lot.x + 8;
+        if (lot.id.charAt(0) === "b") lx = lot.x + 8;
+        var dot = document.createElementNS(NS2, "circle");
+        dot.setAttribute("cx", lx);
+        dot.setAttribute("cy", lot.y + lot.h - 10);
+        dot.setAttribute("r", 5);
+        dot.setAttribute("class", "box");
+        g.appendChild(dot);
+        if (SUBS[lot.id]) {
+          var bell = document.createElementNS(NS2, "circle");
+          bell.setAttribute("cx", lot.x + lot.w - 10);
+          bell.setAttribute("cy", lot.y + 10);
+          bell.setAttribute("r", 6);
+          bell.setAttribute("class", "subdot");
+          g.appendChild(bell);
+        }
+        g.setAttribute("tabindex", "0");
+        g.setAttribute("role", "button");
+        g.addEventListener("click", function () { toggle(lot); });
+        g.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggle(lot);
+          }
+        });
+      }
+      map.appendChild(g);
+      lotEls[lot.id] = g;
+    });
+
+    function render() {
+      var ids = AREAS[area];
+      var done = ids.filter(function (id) { return dropped[id]; }).length;
+      LOTS.forEach(function (lot) {
+        var g = lotEls[lot.id];
+        var cls = "drop-lot";
+        if (lot.project) cls += " project";
+        else if (!inArea(lot.id)) cls += " out";
+        else cls += dropped[lot.id] ? " done" : " todo";
+        g.setAttribute("class", cls);
+        if (!lot.project) {
+          var state = !inArea(lot.id) ? "not in this drop" : dropped[lot.id] ? "dropped" : "to drop";
+          g.setAttribute("aria-label", lot.addr + ": " + state);
+        }
+      });
+      drop.querySelector("[data-drop-count]").textContent = done + " of " + ids.length;
+      drop.querySelector("[data-drop-bar]").style.width = Math.round((done / ids.length) * 100) + "%";
+      finish.textContent = done === ids.length ? "Log this drop ✓" : "Log this drop (" + (ids.length - done) + " to go)";
+
+      listEl2.innerHTML = "";
+      ids.forEach(function (id) {
+        var lot = LOTS.filter(function (l) { return l.id === id; })[0];
+        var li = document.createElement("li");
+        var name = document.createElement("span");
+        name.textContent = lot.addr + (SUBS[id] ? " 🔔" : "");
+        var pill = document.createElement("span");
+        pill.className = "pill " + (dropped[id] ? "pill-green" : "pill-amber");
+        pill.textContent = dropped[id] ? "Dropped" : "To drop";
+        li.appendChild(name);
+        li.appendChild(pill);
+        listEl2.appendChild(li);
+      });
+
+      var subs = Object.keys(SUBS);
+      drop.querySelector("[data-sub-count]").textContent = subs.length;
+      drop.querySelector("[data-sub-names]").textContent = subs
+        .map(function (id) { return LOTS.filter(function (l) { return l.id === id; })[0].addr; })
+        .join(", ") + ". They'll get your updates by text or email from now on.";
+    }
+
+    drop.querySelector("[data-drop-area]").addEventListener("click", function (e) {
+      var btn = e.target.closest("button");
+      if (!btn) return;
+      this.querySelectorAll("button").forEach(function (b) {
+        b.classList.toggle("on", b === btn);
+      });
+      area = btn.getAttribute("data-area");
+      toast2.hidden = true;
+      render();
+    });
+
+    finish.addEventListener("click", function () {
+      var ids = AREAS[area];
+      var done = ids.filter(function (id) { return dropped[id]; }).length;
+      if (done === ids.length) {
+        say("Drop logged: " + done + " houses, today at 4:15pm. Saved to your notification log as proof you gave notice.");
+      } else {
+        say("Logged " + done + " of " + ids.length + ". The " + (ids.length - done) + " you haven't reached are saved, so you can finish them next time.");
+      }
+    });
+
+    render();
+  }
+
   // Street map: click a lot to show its record.
   var card = document.querySelector("[data-lot-card]");
   if (card) {

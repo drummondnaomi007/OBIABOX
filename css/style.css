@@ -2504,3 +2504,230 @@ table.compliance-table th {
     align-items: stretch;
   }
 }
+
+/* Letterbox drop mockup */
+.mock-drop {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mock-drop .mock-phone {
+  width: 320px;
+}
+
+.mock-drop-screen {
+  padding: 10px 14px 18px;
+  min-height: 0;
+}
+
+.mock-drop-screen .mock-phone-title {
+  margin: 4px 0 6px;
+}
+
+.mock-drop-progress {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.mock-drop-progress strong {
+  font-size: 1.3rem;
+  color: var(--ink-900);
+}
+
+.mock-drop-progress span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.mock-drop-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 10px 0 6px;
+}
+
+.mock-drop-map .road {
+  fill: #D9DEE3;
+}
+
+.mock-drop-map .road.lane {
+  fill: #E6E9EC;
+}
+
+.mock-drop-map .road-line {
+  stroke: var(--white);
+  stroke-width: 2;
+  stroke-dasharray: 12 10;
+}
+
+.mock-drop-map .road-name {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  fill: #5B6670;
+}
+
+.mock-drop-map .road-name.small {
+  font-size: 8px;
+}
+
+.mock-drop-map .lot-no {
+  font-size: 18px;
+  font-weight: 800;
+  text-anchor: middle;
+  fill: var(--ink-900);
+  pointer-events: none;
+}
+
+.mock-drop-map .lot-sub {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-anchor: middle;
+  fill: var(--white);
+  pointer-events: none;
+}
+
+.drop-lot rect {
+  stroke-width: 2;
+}
+
+.drop-lot.todo,
+.drop-lot.done {
+  cursor: pointer;
+}
+
+.drop-lot.todo rect {
+  fill: var(--white);
+  stroke: var(--brand-600);
+  stroke-dasharray: 5 4;
+}
+
+.drop-lot.done rect {
+  fill: var(--green-50);
+  stroke: var(--green);
+}
+
+.drop-lot.out rect {
+  fill: #F4F1EE;
+  stroke: #D9CFC6;
+}
+
+.drop-lot.out .lot-no {
+  fill: #A9B1B8;
+}
+
+.drop-lot.project rect {
+  fill: var(--brand-600);
+  stroke: var(--brand-600);
+}
+
+.drop-lot.project .lot-no {
+  fill: var(--white);
+}
+
+.drop-lot .box {
+  fill: #B8C0C7;
+}
+
+.drop-lot.todo .box {
+  fill: var(--brand-600);
+}
+
+.drop-lot.done .box {
+  fill: var(--green);
+}
+
+.drop-lot .subdot {
+  fill: #0B6E8F;
+  stroke: var(--white);
+  stroke-width: 2;
+}
+
+.drop-lot:focus-visible {
+  outline: none;
+}
+
+.drop-lot:focus-visible rect,
+.drop-lot.todo:hover rect,
+.drop-lot.done:hover rect {
+  stroke-width: 4;
+}
+
+.mock-drop-legend {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.mock-drop-legend i {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+
+.mock-drop-legend i.todo {
+  border: 2px dashed var(--brand-600);
+}
+
+.mock-drop-legend i.done {
+  background: var(--green-50);
+  border: 2px solid var(--green);
+}
+
+.mock-drop-legend i.sub {
+  background: #0B6E8F;
+  border-radius: 50%;
+}
+
+.mock-drop-screen .mock-btn {
+  border: none;
+  width: 100%;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mock-drop-screen .mock-btn:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+.mock-drop-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.mock-drop-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+@media (max-width: 760px) {
+  .mock-drop {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .mock-drop-side {
+    width: 100%;
+  }
+  .mock-drop .mock-phone {
+    width: 100%;
+    max-width: 320px;
+  }
+}
