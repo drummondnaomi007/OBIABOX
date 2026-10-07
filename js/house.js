@@ -1,6 +1,9 @@
 // Line-drawn house that "builds" as you scroll.
-// - A floating build tracker (bottom right) draws the house in build stages
-//   linked to how far down the page you are.
+// - A floating build tracker (bottom right) draws the house in build stages.
+//   Every page contributes an equal share of the build, in whatever order
+//   it's visited: scrolling to the bottom of a page completes its share.
+//   Progress is remembered in the browser, so the house keeps building from
+//   page to page (and on return visits) until handover.
 // - Each hero gets a faint plan-style house that draws itself on load.
 // Purely decorative: hidden from screen readers, skipped when printing, and
 // shown fully drawn (no motion) for people who prefer reduced motion.
@@ -70,6 +73,38 @@
     return { svg: svg, paths: paths };
   }
 
+  // Pages that make up the build. Each one is an equal share of the house.
+  var PAGES = ["index", "features", "neighbours", "about", "contact", "demo/notice", "demo/project"];
+  var STORE_KEY = "obiab-build-v1";
+  var memoryStore = {};
+
+  function currentPageId() {
+    var path = window.location.pathname.replace(/\/$/, "/index.html");
+    var m = path.match(/(demo\/)?([a-z-]+)\.html$/);
+    var id = m ? (m[1] || "") + m[2] : "index";
+    return PAGES.indexOf(id) === -1 ? null : id;
+  }
+
+  // Browser storage can be unavailable (private mode, blocked site data).
+  // Fall back to an in-memory copy so the page still works.
+  function loadBuilt() {
+    try {
+      var raw = window.localStorage.getItem(STORE_KEY);
+      return raw ? JSON.parse(raw) || {} : {};
+    } catch (e) {
+      return memoryStore;
+    }
+  }
+
+  function saveBuilt(data) {
+    memoryStore = data;
+    try {
+      window.localStorage.setItem(STORE_KEY, JSON.stringify(data));
+    } catch (e) {
+      /* keep the in-memory copy */
+    }
+  }
+
   function clamp(n) {
     return n < 0 ? 0 : n > 1 ? 1 : n;
   }
@@ -89,28 +124,62 @@
       }
     }
 
-    // Floating build tracker: draws with scroll.
+    // Floating build tracker: builds across pages.
     var tracker = document.createElement("div");
     tracker.className = "build-tracker";
-    tracker.setAttribute("aria-hidden", "true");
     var t = buildSvg("tracker-house", true);
     var label = document.createElement("div");
     label.className = "build-stage";
+    var count = document.createElement("div");
+    count.className = "build-count";
     var bar = document.createElement("div");
     bar.className = "build-bar";
     var fill = document.createElement("span");
     bar.appendChild(fill);
+    var again = document.createElement("button");
+    again.type = "button";
+    again.className = "build-again";
+    again.textContent = "Build again ↺";
     tracker.appendChild(t.svg);
     tracker.appendChild(label);
+    tracker.appendChild(count);
     tracker.appendChild(bar);
+    tracker.appendChild(again);
     document.body.appendChild(tracker);
     document.body.classList.add("has-tracker");
+
+    var pageId = currentPageId();
+    var built = loadBuilt();
+
+    again.addEventListener("click", function () {
+      built = {};
+      saveBuilt(built);
+      update();
+    });
 
     var ticking = false;
     function update() {
       ticking = false;
       var max = document.documentElement.scrollHeight - window.innerHeight;
-      var progress = reduceMotion || max <= 0 ? 1 : clamp(window.scrollY / max);
+      // Opening a page counts as a visit; a page that doesn't scroll counts
+      // as fully read once it's open.
+      var here = max <= 0 ? 1 : Math.max(0.001, clamp(window.scrollY / max));
+      if (pageId && here > (built[pageId] || 0)) {
+        built[pageId] = Math.round(here * 1000) / 1000;
+        saveBuilt(built);
+      }
+
+      var total = 0;
+      var visited = 0;
+      PAGES.forEach(function (id) {
+        var v = built[id] || 0;
+        total += v;
+        if (v > 0) visited += 1;
+      });
+      var progress = clamp(total / PAGES.length);
+      // Snap the last sliver so rounding never leaves the house unfinished.
+      if (progress > 0.995) progress = 1;
+
       t.paths.forEach(function (p, i) {
         var part = PARTS[i];
         var local = clamp((progress - part.start) / (part.end - part.start));
@@ -121,6 +190,7 @@
         if (progress >= s.at) stage = s.name;
       });
       label.textContent = stage;
+      count.textContent = visited + " of " + PAGES.length + " pages";
       fill.style.width = Math.round(progress * 100) + "%";
       tracker.classList.toggle("done", progress >= 0.97);
     }
@@ -132,6 +202,13 @@
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    // Another tab building the same house: stay in sync.
+    window.addEventListener("storage", function (e) {
+      if (e.key === STORE_KEY) {
+        built = loadBuilt();
+        onScroll();
+      }
+    });
     update();
   });
 })();

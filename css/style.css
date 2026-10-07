@@ -899,6 +899,35 @@ table.compliance-table th {
   margin-top: 2px;
 }
 
+.build-count {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.build-again {
+  display: none;
+  margin: 8px auto 0;
+  padding: 3px 10px;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--green);
+  background: var(--green-50);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.build-again:hover,
+.build-again:focus-visible {
+  border-color: var(--green);
+}
+
+.build-tracker.done .build-again {
+  display: block;
+}
+
 .build-bar {
   height: 4px;
   border-radius: 999px;
@@ -940,6 +969,14 @@ table.compliance-table th {
   }
   .build-stage {
     font-size: 0.62rem;
+  }
+  .build-count {
+    display: none;
+  }
+  .build-again {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    margin-top: 5px;
   }
   .build-bar {
     margin-top: 4px;

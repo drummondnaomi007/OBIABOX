@@ -16,6 +16,7 @@ demo/notice.html      Sample printable letterbox notice (with placeholder QR cod
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
+js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
 assets/               Logo + favicon
 ```
 
