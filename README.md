@@ -28,15 +28,22 @@ python3 -m http.server 8000
 
 ## Deploying
 
-GitHub Pages from `main`, root folder, served at **https://obiab.tradiesbureau.com** (set by the `CNAME` file).
+GitHub Pages from `main`, root folder. For now it's served at **https://drummondnaomi007.github.io/OBIABOX/** for testing.
 
-DNS record at the tradiesbureau.com DNS provider (Panthur):
+When a domain is ready, add a `CNAME` file containing just the domain (e.g. `obiab.tradiesbureau.com`), add a DNS CNAME record pointing that host at `drummondnaomi007.github.io`, then tick **Enforce HTTPS** under Settings → Pages once the certificate is issued.
 
-| Type | Host/Name | Value |
+## Branding
+
+Same layout and components as Tradies Bureau, different colours so the two are easy to tell apart:
+
+| | Tradies Bureau | Owner Builder in a Box |
 |---|---|---|
-| CNAME | `obiab` | `drummondnaomi007.github.io` |
+| Primary (header, buttons) | Teal `#0B6E8F` | Burnt orange `#C2410C` |
+| Dark (headings, footer) | Navy `#1A365D` | Charcoal `#1F2933` |
+| Tint (backgrounds) | Pale blue `#E8F1F6` | Warm cream `#FFF3EA` |
+| Logo | Layered hammers | House in an open box |
 
-Once GitHub verifies the domain and issues a certificate, tick **Enforce HTTPS** under Settings → Pages.
+Colours live as CSS variables at the top of `css/style.css` (`--brand-*`, `--ink-*`).
 
 ## Product outline (for the app build)
 

@@ -1,15 +1,17 @@
-/* Owner Builder in a Box — dark blue & teal theme (shared with Tradies Bureau) */
+/* Owner Builder in a Box — charcoal & burnt orange "site safety" theme.
+   Layout and components shared with Tradies Bureau; colours deliberately differ. */
 
 :root {
-  --navy-900: #1A365D;
-  --navy-700: #2D5A8C;
-  --teal-600: #0B6E8F;
-  --teal-500: #1B8FA8;
-  --navy-100: #e8f1f6;
-  --green-900: #1A365D;
+  --ink-900: #1F2933;
+  --ink-700: #3E4C59;
+  --brand-600: #C2410C;
+  --brand-500: #F97316;
+  --brand-50: #FFF3EA;
+  --green: #1E7B3A;
+  --green-50: #E6F4EA;
   --red: #c0392b;
   --ink: #20242b;
-  --muted: #52685c;
+  --muted: #5B6670;
   --white: #ffffff;
   --amber: #e0a020;
   --radius: 10px;
@@ -51,7 +53,7 @@ a {
 /* Header */
 
 .site-header {
-  background: var(--teal-600);
+  background: var(--brand-600);
   color: var(--white);
   position: sticky;
   top: 0;
@@ -81,7 +83,7 @@ a {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+  background: linear-gradient(135deg, var(--brand-500), var(--brand-600));
   display: inline-block;
 }
 
@@ -110,12 +112,12 @@ a {
 .nav-links a:hover,
 .nav-links a.active {
   opacity: 1;
-  border-bottom: 2px solid var(--teal-500);
+  border-bottom: 2px solid var(--brand-500);
 }
 
 .nav-cta {
   background: var(--white);
-  color: var(--teal-600) !important;
+  color: var(--brand-600) !important;
   padding: 8px 16px;
   border-radius: 999px;
   font-weight: 700;
@@ -140,7 +142,7 @@ a {
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--teal-600);
+    background: var(--brand-600);
     flex-direction: column;
     align-items: flex-start;
     padding: 16px 24px 24px;
@@ -155,7 +157,7 @@ a {
 /* Hero */
 
 .hero {
-  background: radial-gradient(circle at top right, var(--navy-100), var(--white) 60%);
+  background: radial-gradient(circle at top right, var(--brand-50), var(--white) 60%);
   padding: 72px 0 56px;
 }
 
@@ -174,8 +176,8 @@ a {
 
 .eyebrow {
   display: inline-block;
-  background: var(--navy-100);
-  color: var(--teal-600);
+  background: var(--brand-50);
+  color: var(--brand-600);
   font-weight: 700;
   font-size: 0.8rem;
   letter-spacing: 0.06em;
@@ -189,7 +191,7 @@ h1 {
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.1;
   margin: 0 0 16px;
-  color: var(--navy-900);
+  color: var(--ink-900);
 }
 
 .lede {
@@ -217,35 +219,35 @@ h1 {
 }
 
 .btn-primary {
-  background: var(--teal-600);
+  background: var(--brand-600);
   color: var(--white);
 }
 
 .btn-primary:hover {
-  background: var(--navy-900);
+  background: var(--ink-900);
 }
 
 .btn-outline {
-  border-color: var(--teal-600);
-  color: var(--teal-600);
+  border-color: var(--brand-600);
+  color: var(--brand-600);
   background: transparent;
 }
 
 .btn-outline:hover {
-  background: var(--navy-100);
+  background: var(--brand-50);
 }
 
 .hero-card {
   background: var(--white);
-  border: 1px solid #d8e8f4;
+  border: 1px solid #F3D9C6;
   border-radius: 16px;
   padding: 28px;
-  box-shadow: 0 20px 40px -24px rgba(26, 54, 93, 0.35);
+  box-shadow: 0 20px 40px -24px rgba(31, 41, 51, 0.35);
 }
 
 .hero-card h3 {
   margin-top: 0;
-  color: var(--navy-900);
+  color: var(--ink-900);
 }
 
 .status-row {
@@ -253,7 +255,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid #e8f1f8;
+  border-bottom: 1px solid #F5E6DA;
 }
 
 .status-row:last-child {
@@ -268,8 +270,8 @@ h1 {
 }
 
 .pill-green {
-  background: #e8f1f6;
-  color: var(--teal-600);
+  background: var(--green-50);
+  color: var(--green);
 }
 
 .pill-amber {
@@ -290,7 +292,7 @@ section {
 }
 
 .section-head h2 {
-  color: var(--navy-900);
+  color: var(--ink-900);
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   margin-bottom: 12px;
 }
@@ -300,7 +302,7 @@ section {
 }
 
 .section-alt {
-  background: var(--navy-100);
+  background: var(--brand-50);
 }
 
 .grid {
@@ -325,7 +327,7 @@ section {
 
 .card {
   background: var(--white);
-  border: 1px solid #e4efe8;
+  border: 1px solid #EFE4DB;
   border-radius: var(--radius);
   padding: 28px;
 }
@@ -334,8 +336,8 @@ section {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: var(--navy-100);
-  color: var(--teal-600);
+  background: var(--brand-50);
+  color: var(--brand-600);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -345,7 +347,7 @@ section {
 
 .card h3 {
   margin: 0 0 8px;
-  color: var(--navy-900);
+  color: var(--ink-900);
 }
 
 .card p {
@@ -368,7 +370,7 @@ section {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--teal-600);
+  background: var(--brand-600);
   color: var(--white);
   display: flex;
   align-items: center;
@@ -380,7 +382,7 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--navy-900);
+  background: var(--ink-900);
   color: var(--white);
   padding: 8px 16px;
   border-radius: 999px;
@@ -393,11 +395,11 @@ section {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--teal-500);
+  background: var(--brand-500);
 }
 
 .cta-banner {
-  background: var(--teal-600);
+  background: var(--brand-600);
   color: var(--white);
   border-radius: 20px;
   padding: 48px;
@@ -412,11 +414,11 @@ section {
 
 .cta-banner .btn-primary {
   background: var(--white);
-  color: var(--teal-600);
+  color: var(--brand-600);
 }
 
 .cta-banner .btn-primary:hover {
-  background: var(--navy-100);
+  background: var(--brand-50);
 }
 
 table.compliance-table {
@@ -429,12 +431,12 @@ table.compliance-table th,
 table.compliance-table td {
   text-align: left;
   padding: 14px 16px;
-  border-bottom: 1px solid #e4efe8;
+  border-bottom: 1px solid #EFE4DB;
 }
 
 table.compliance-table th {
-  background: var(--navy-100);
-  color: var(--navy-900);
+  background: var(--brand-50);
+  color: var(--ink-900);
 }
 
 .screenshot-card {
@@ -442,8 +444,8 @@ table.compliance-table th {
   margin: 24px auto 0;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #d8e8f4;
-  box-shadow: 0 20px 40px -24px rgba(26, 54, 93, 0.35);
+  border: 1px solid #F3D9C6;
+  box-shadow: 0 20px 40px -24px rgba(31, 41, 51, 0.35);
 }
 
 .screenshot-card img {
@@ -474,8 +476,8 @@ table.compliance-table th {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: var(--navy-100);
-  color: var(--teal-600);
+  background: var(--brand-50);
+  color: var(--brand-600);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -492,8 +494,8 @@ table.compliance-table th {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: var(--navy-100);
-  color: var(--teal-600);
+  background: var(--brand-50);
+  color: var(--brand-600);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -502,15 +504,15 @@ table.compliance-table th {
 }
 
 .social-link:hover {
-  background: var(--teal-600);
+  background: var(--brand-600);
   color: var(--white);
 }
 
 /* Footer */
 
 .site-footer {
-  background: var(--navy-900);
-  color: #cfe6d8;
+  background: var(--ink-900);
+  color: #D9DEE3;
   padding: 48px 0 24px;
   margin-top: 40px;
 }
@@ -544,7 +546,7 @@ table.compliance-table th {
 }
 
 .footer-grid a {
-  color: #cfe6d8;
+  color: #D9DEE3;
   text-decoration: none;
 }
 
@@ -587,7 +589,7 @@ table.compliance-table th {
 .form-stack select {
   padding: 12px 14px;
   border-radius: var(--radius);
-  border: 1px solid #cfe0d5;
+  border: 1px solid #DCCFC4;
   font-family: inherit;
   font-size: 1rem;
 }
@@ -595,7 +597,7 @@ table.compliance-table th {
 .form-stack label {
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--navy-900);
+  color: var(--ink-900);
   margin-bottom: -8px;
 }
 
@@ -618,8 +620,8 @@ table.compliance-table th {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--teal-600);
-  background: var(--navy-100);
+  color: var(--brand-600);
+  background: var(--brand-50);
   border-radius: 999px;
   padding: 3px 10px;
   margin-bottom: 10px;
@@ -630,7 +632,7 @@ table.compliance-table th {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-left: 3px solid var(--navy-100);
+  border-left: 3px solid var(--brand-50);
 }
 
 .timeline li {
@@ -646,7 +648,7 @@ table.compliance-table th {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: var(--teal-600);
+  background: var(--brand-600);
   border: 2px solid var(--white);
 }
 
@@ -656,7 +658,7 @@ table.compliance-table th {
 
 .timeline .when {
   font-weight: 700;
-  color: var(--navy-900);
+  color: var(--ink-900);
 }
 
 .timeline .what {
@@ -680,13 +682,13 @@ table.compliance-table th {
 .register td {
   text-align: left;
   padding: 10px 12px;
-  border-bottom: 1px solid var(--navy-100);
+  border-bottom: 1px solid var(--brand-50);
   vertical-align: top;
 }
 
 .register th {
-  color: var(--navy-900);
-  background: var(--navy-100);
+  color: var(--ink-900);
+  background: var(--brand-50);
   font-weight: 600;
 }
 
@@ -695,20 +697,20 @@ table.compliance-table th {
   max-width: 720px;
   margin: 0 auto;
   background: var(--white);
-  border: 1px solid #d6e0e8;
+  border: 1px solid #E5D8CC;
   border-radius: var(--radius);
   padding: 36px;
-  box-shadow: 0 6px 24px rgba(26, 54, 93, 0.08);
+  box-shadow: 0 6px 24px rgba(31, 41, 51, 0.08);
 }
 
 .notice-sheet h1 {
-  color: var(--navy-900);
+  color: var(--ink-900);
   margin: 0 0 6px;
   font-size: 1.9rem;
 }
 
 .notice-head {
-  border-bottom: 3px solid var(--teal-600);
+  border-bottom: 3px solid var(--brand-600);
   padding-bottom: 14px;
   margin-bottom: 18px;
 }
@@ -736,7 +738,7 @@ table.compliance-table th {
   font-size: 0.8rem;
   color: var(--muted);
   margin-top: 18px;
-  border-top: 1px solid var(--navy-100);
+  border-top: 1px solid var(--brand-50);
   padding-top: 10px;
 }
 
