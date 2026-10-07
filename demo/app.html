@@ -42,6 +42,7 @@
         <a href="#trades-register">Trades register</a>
         <a href="#quotes">Compare quotes</a>
         <a href="#contract">Contract admin</a>
+        <a href="#inspection">Book an inspection</a>
       </nav>
     </div>
   </section>
@@ -436,6 +437,91 @@
               <div class="mock-score"><strong>$412k</strong><span>committed of $440k budget</span></div>
               <div class="mock-paidbar"><span style="width:94%"></span></div>
               <p class="mock-muted" style="margin:10px 0 0;">6 contracts signed · 1 trade out to tender · $6,350 in approved variations so far</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Inspection booking -->
+  <section class="section-alt" id="inspection">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Mockup 8 · Book an inspection</span>
+        <h2>Ready, booked, passed</h2>
+        <p>Check you're ready, pick a time with your building surveyor, then record the result. The app tells your trades, holds anything that would cover the work up, and frees up the matching payment once it passes. Click through it.</p>
+      </div>
+
+      <div class="mock-browser">
+        <div class="mock-bar"><span></span><span></span><span></span><em>Inspections · 12 Smith St</em></div>
+        <div class="mock-insp" data-insp>
+          <aside class="mock-insp-stages">
+            <div class="mock-label">Inspections on your permit</div>
+            <ol class="mock-stagelist">
+              <li class="passed"><strong>Footings</strong><span>Passed 18 Nov</span></li>
+              <li class="passed"><strong>Slab (pre-pour)</strong><span>Passed 2 Dec</span></li>
+              <li class="current" data-frame-stage><strong>Frame</strong><span data-frame-status>Ready to book</span></li>
+              <li><strong>Final</strong><span>After fixing stage</span></li>
+            </ol>
+            <p class="mock-muted" style="margin:14px 0 0;">Stages come from your building permit. Your relevant building surveyor: Example Building Surveying.</p>
+          </aside>
+
+          <div class="mock-insp-flow">
+            <ol class="mock-stepper" data-stepper>
+              <li class="on">1 · Ready?</li>
+              <li>2 · Pick a time</li>
+              <li>3 · Booked</li>
+            </ol>
+
+            <!-- Step 1 -->
+            <div class="mock-step" data-step="1">
+              <h3>Frame inspection: are you ready?</h3>
+              <p class="mock-muted">Being ready saves a wasted visit and a re-inspection fee.</p>
+              <ul class="mock-checks">
+                <li class="ok"><span class="mock-box">✓</span>Wall frames and roof trusses complete</li>
+                <li class="ok"><span class="mock-box">✓</span>Bracing and tie-downs installed to the engineering plans</li>
+                <li data-missing><span class="mock-box"></span>Roof truss design certificate uploaded <button type="button" class="mock-award ghost small" data-upload>Upload</button></li>
+                <li class="ok"><span class="mock-box">✓</span>Nothing lined or covered yet</li>
+              </ul>
+              <button type="button" class="mock-award" data-next="2" disabled>Choose a time</button>
+              <span class="mock-muted" data-blocked style="margin-left:10px;">Upload the truss certificate first</span>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="mock-step" data-step="2" hidden>
+              <h3>Pick a time</h3>
+              <p class="mock-muted">Times your building surveyor has open this week.</p>
+              <div class="mock-slots" data-slots>
+                <button type="button">Wed 10:00am</button>
+                <button type="button" class="on">Thu 8:00am</button>
+                <button type="button">Fri 1:30pm</button>
+              </div>
+              <div class="mock-label">Who'll meet the surveyor?</div>
+              <div class="mock-field">Sam Taylor (owner) · 0400 000 000</div>
+              <div class="mock-label">Note for the surveyor</div>
+              <div class="mock-field">Side gate unlocked. Truss certificate and engineering are in the shared folder.</div>
+              <button type="button" class="mock-award" data-next="3">Request booking</button>
+              <button type="button" class="mock-award ghost" data-next="1">Back</button>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="mock-step" data-step="3" hidden>
+              <h3 data-booked-title>Booked: Thu 8:00am</h3>
+              <p class="mock-muted">Confirmed by Example Building Surveying. Here's what the app did for you:</p>
+              <ul class="mock-checks">
+                <li class="ok"><span class="mock-box">✓</span>Calendar invite sent to you</li>
+                <li class="ok"><span class="mock-box">✓</span>Northside Framing told to be on call in case of defects</li>
+                <li class="ok"><span class="mock-box">✓</span>Plasterer asked to hold until the frame passes</li>
+                <li class="ok"><span class="mock-box">✓</span>Truss certificate and engineering shared with the surveyor</li>
+              </ul>
+              <div class="mock-result" data-result>
+                <div class="mock-label">After the visit, record the result</div>
+                <button type="button" class="mock-award" data-pass>Passed</button>
+                <button type="button" class="mock-award ghost" data-defects>Defects noted</button>
+              </div>
+              <div class="mock-outcome" data-outcome hidden></div>
+              <button type="button" class="mock-reset" data-reset>Start again</button>
             </div>
           </div>
         </div>

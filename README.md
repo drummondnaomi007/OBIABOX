@@ -14,11 +14,11 @@ about.html            About + "not legal or building advice"
 contact.html          Waitlist (mailto form)
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
-demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin
+demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
-js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation)
+js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow)
 assets/               Logo + favicon
 ```
 
@@ -68,6 +68,7 @@ The app reuses the Tradies Bureau Compliance Tracker pattern: **an item with dat
 | Quote | trade, price, inclusions, exclusions, start date, duration, valid until | before quote expires |
 | Contract | trade, accepted quote, signed contract, contract sum, payment schedule (each stage optionally waits for an inspection) | payment due when linked inspection passes |
 | Variation | contract, description, cost, photos, requested by, approved in writing (date) | approve before work starts |
+| Inspection | stage (from the building permit), readiness checklist, documents shared with the surveyor, booked time, who's on site, result (passed / defects), defects list | book before work is covered; hold covering trades; release linked payment on pass |
 | End-of-job certificate | trade, type (plumbing compliance, electrical safety, waterproofing), document | collect before final payment |
 
 ### Neighbour notification flow

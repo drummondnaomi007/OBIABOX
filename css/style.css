@@ -1823,3 +1823,219 @@ table.compliance-table th {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Inspection booking mockup */
+.mock-insp {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: #FBF8F5;
+}
+
+.mock-insp-stages {
+  padding: 20px;
+  border-right: 1px solid #EFE4DB;
+  background: var(--white);
+}
+
+.mock-stagelist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 3px solid #EFE4DB;
+}
+
+.mock-stagelist li {
+  position: relative;
+  padding: 0 0 18px 18px;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.mock-stagelist li span {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.mock-stagelist li::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #E5D8CC;
+  border: 2px solid var(--white);
+}
+
+.mock-stagelist li.passed::before { background: var(--green); }
+.mock-stagelist li.passed span { color: var(--green); font-weight: 600; }
+.mock-stagelist li.current::before { background: var(--brand-600); box-shadow: 0 0 0 4px var(--brand-50); }
+.mock-stagelist li.current span { color: var(--brand-600); font-weight: 600; }
+.mock-stagelist li.defect::before { background: var(--red); }
+.mock-stagelist li.defect span { color: var(--red); font-weight: 600; }
+
+.mock-insp-flow {
+  padding: 20px 24px 24px;
+  min-width: 0;
+}
+
+.mock-insp-flow h3 {
+  margin: 0 0 4px;
+  color: var(--ink-900);
+}
+
+.mock-stepper {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.mock-stepper li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #F4F1EE;
+  color: var(--muted);
+}
+
+.mock-stepper li.on {
+  background: var(--brand-600);
+  color: var(--white);
+}
+
+.mock-stepper li.done {
+  background: var(--green-50);
+  color: var(--green);
+}
+
+.mock-checks {
+  list-style: none;
+  margin: 14px 0 18px;
+  padding: 0;
+}
+
+.mock-checks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  padding: 9px 0;
+  border-bottom: 1px solid #F5E6DA;
+  font-size: 0.9rem;
+}
+
+.mock-box {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid #D9CFC6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--white);
+  background: var(--white);
+}
+
+.mock-checks li.ok .mock-box {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.mock-award.small {
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  margin-left: auto;
+}
+
+.mock-award:disabled {
+  background: #D9CFC6;
+  color: var(--white);
+  cursor: not-allowed;
+}
+
+.mock-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.mock-slots button {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1.5px solid #E5D8CC;
+  background: var(--white);
+  color: var(--ink-900);
+  cursor: pointer;
+}
+
+.mock-slots button.on {
+  border-color: var(--brand-600);
+  background: var(--brand-50);
+  color: var(--brand-600);
+}
+
+.mock-slots button:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+.mock-result {
+  margin-top: 4px;
+}
+
+.mock-result .mock-label {
+  margin-bottom: 8px;
+}
+
+.mock-outcome {
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.mock-outcome.pass {
+  background: var(--green-50);
+  color: #145a2a;
+}
+
+.mock-outcome.defects {
+  background: #fbe3e0;
+  color: #8a2a1f;
+}
+
+.mock-reset {
+  display: block;
+  margin-top: 14px;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+@media (max-width: 860px) {
+  .mock-insp {
+    grid-template-columns: 1fr;
+  }
+  .mock-insp-stages {
+    border-right: none;
+    border-bottom: 1px solid #EFE4DB;
+  }
+}

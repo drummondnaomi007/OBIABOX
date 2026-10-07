@@ -93,6 +93,101 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Inspection booking flow.
+  var insp = document.querySelector("[data-insp]");
+  if (insp) {
+    var steps = insp.querySelectorAll("[data-step]");
+    var stepper = insp.querySelectorAll("[data-stepper] li");
+    var nextFromReady = insp.querySelector('[data-step="1"] [data-next="2"]');
+    var blocked = insp.querySelector("[data-blocked]");
+    var missing = insp.querySelector("[data-missing]");
+    var frameStage = insp.querySelector("[data-frame-stage]");
+    var frameStatus = insp.querySelector("[data-frame-status]");
+    var outcome = insp.querySelector("[data-outcome]");
+    var result = insp.querySelector("[data-result]");
+    var slot = "Thu 8:00am";
+
+    function show(n) {
+      steps.forEach(function (st) {
+        st.hidden = st.getAttribute("data-step") !== String(n);
+      });
+      stepper.forEach(function (li, i) {
+        li.classList.toggle("on", i === n - 1);
+        li.classList.toggle("done", i < n - 1);
+      });
+    }
+
+    function setFrame(cls, text) {
+      frameStage.className = cls;
+      frameStatus.textContent = text;
+    }
+
+    function markUploaded() {
+      missing.classList.add("ok");
+      missing.querySelector(".mock-box").textContent = "✓";
+      this.remove();
+      nextFromReady.disabled = false;
+      blocked.textContent = "All set";
+    }
+    insp.querySelector("[data-upload]").addEventListener("click", markUploaded);
+
+    insp.querySelector("[data-slots]").addEventListener("click", function (e) {
+      var btn = e.target.closest("button");
+      if (!btn) return;
+      this.querySelectorAll("button").forEach(function (b) {
+        b.classList.toggle("on", b === btn);
+      });
+      slot = btn.textContent;
+    });
+
+    insp.querySelectorAll("[data-next]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var n = parseInt(btn.getAttribute("data-next"), 10);
+        if (n === 3) {
+          insp.querySelector("[data-booked-title]").textContent = "Booked: " + slot;
+          setFrame("current", "Booked " + slot);
+        }
+        show(n);
+      });
+    });
+
+    insp.querySelector("[data-pass]").addEventListener("click", function () {
+      result.hidden = true;
+      outcome.hidden = false;
+      outcome.className = "mock-outcome pass";
+      outcome.innerHTML = "<strong>Frame inspection passed.</strong> The $8,975 “Frame complete” payment to Northside Framing is ready for you to approve, and the plasterer can start. Next up: lock-up.";
+      setFrame("passed", "Passed today");
+    });
+
+    insp.querySelector("[data-defects]").addEventListener("click", function () {
+      result.hidden = true;
+      outcome.hidden = false;
+      outcome.className = "mock-outcome defects";
+      outcome.innerHTML = "<strong>2 defects noted.</strong> Missing tie-down at the rear corner and an undersized lintel over the laundry door, both sent to Northside Framing with the surveyor’s photos. The payment stays on hold. Book a re-inspection once they’re fixed.";
+      setFrame("defect", "Re-inspection needed");
+    });
+
+    insp.querySelector("[data-reset]").addEventListener("click", function () {
+      missing.classList.remove("ok");
+      missing.querySelector(".mock-box").textContent = "";
+      if (!missing.querySelector("[data-upload]")) {
+        var up = document.createElement("button");
+        up.type = "button";
+        up.className = "mock-award ghost small";
+        up.setAttribute("data-upload", "");
+        up.textContent = "Upload";
+        missing.appendChild(up);
+        up.addEventListener("click", markUploaded);
+      }
+      nextFromReady.disabled = true;
+      blocked.textContent = "Upload the truss certificate first";
+      result.hidden = false;
+      outcome.hidden = true;
+      setFrame("current", "Ready to book");
+      show(1);
+    });
+  }
+
   // Street map: click a lot to show its record.
   var card = document.querySelector("[data-lot-card]");
   if (card) {
