@@ -44,6 +44,7 @@
         <a href="#quotes">Compare quotes</a>
         <a href="#contract">Contract admin</a>
         <a href="#inspection">Book an inspection</a>
+        <a href="#vault">Document vault</a>
       </nav>
     </div>
   </section>
@@ -523,6 +524,62 @@
               </div>
               <div class="mock-outcome" data-outcome hidden></div>
               <button type="button" class="mock-reset" data-reset>Start again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Document vault -->
+  <section id="vault">
+    <div class="container">
+      <div class="section-head">
+        <span class="tag">Mockup 9 · Document vault</span>
+        <h2>Every document, filed and findable</h2>
+        <p>Snap a photo or forward an email and it's filed in the right place, linked to the right trade or stage, with its expiry date tracked. At handover, it shows you exactly what's still missing. Try the folders, filters, search and buttons.</p>
+      </div>
+
+      <div class="mock-browser">
+        <div class="mock-bar"><span></span><span></span><span></span><em>Documents · 12 Smith St</em></div>
+        <div class="mock-vault" data-vault>
+          <aside class="mock-folders" data-folders aria-label="Folders"></aside>
+
+          <div class="mock-vault-main">
+            <div class="mock-vault-tools">
+              <input type="search" class="mock-search" placeholder="Search documents" aria-label="Search documents" data-vault-search>
+              <div class="mock-chips small" data-vault-filter>
+                <button type="button" class="on" data-filter="all">All</button>
+                <button type="button" data-filter="warn">Expiring</button>
+                <button type="button" data-filter="missing">Missing</button>
+              </div>
+              <button type="button" class="mock-award" data-snap>📷 Snap a document</button>
+              <button type="button" class="mock-award ghost" data-share>Share with surveyor</button>
+            </div>
+
+            <div class="mock-toast" data-vault-toast hidden></div>
+
+            <div class="mock-share" data-share-panel hidden>
+              <div class="mock-label">Share a read-only link</div>
+              <label><input type="checkbox" checked> Approvals &amp; permits</label>
+              <label><input type="checkbox" checked> Inspections</label>
+              <label><input type="checkbox" checked> Plans &amp; engineering</label>
+              <label><input type="checkbox"> Trades &amp; contracts</label>
+              <div class="mock-muted" style="margin:8px 0;">Link expires in 7 days. You can switch it off any time.</div>
+              <button type="button" class="mock-award small" data-copy>Copy link</button>
+            </div>
+
+            <ul class="mock-docs" data-docs aria-live="polite"></ul>
+            <p class="mock-muted mock-empty" data-docs-empty hidden>Nothing matches. Try another folder or search.</p>
+
+            <div class="mock-handover">
+              <div>
+                <div class="mock-label">Handover pack</div>
+                <div class="mock-score"><strong data-hand-count></strong><span>documents ready</span></div>
+                <div class="mock-paidbar"><span data-hand-bar></span></div>
+                <div class="mock-muted" style="margin-top:8px;">Still to collect: <span data-hand-missing></span></div>
+              </div>
+              <button type="button" class="mock-award ghost" data-download>Download build file</button>
             </div>
           </div>
         </div>

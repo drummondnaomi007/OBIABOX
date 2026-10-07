@@ -23,6 +23,11 @@
   box-sizing: border-box;
 }
 
+/* Anything marked hidden stays hidden, even if a class sets display. */
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -2263,5 +2268,239 @@ table.compliance-table th {
   }
   .printing-guide .print-me {
     background: #fff !important;
+  }
+}
+
+/* Document vault mockup */
+.pill-grey {
+  background: #F4F1EE;
+  color: var(--muted);
+}
+
+.mock-vault {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  background: #FBF8F5;
+}
+
+.mock-folders {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 10px;
+  background: var(--white);
+  border-right: 1px solid #EFE4DB;
+}
+
+.mock-folders button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font: inherit;
+  font-size: 0.86rem;
+  text-align: left;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  color: var(--ink-900);
+  cursor: pointer;
+}
+
+.mock-folders button:hover {
+  background: #F4F1EE;
+}
+
+.mock-folders button.on {
+  background: var(--brand-50);
+  color: var(--brand-600);
+  font-weight: 700;
+}
+
+.mock-folders em {
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: #F4F1EE;
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.mock-folders em.alert {
+  background: #fbe3e0;
+  color: var(--red);
+}
+
+.mock-folders button:focus-visible {
+  outline: 2px solid var(--brand-500);
+}
+
+.mock-vault-main {
+  padding: 18px 20px 20px;
+  min-width: 0;
+}
+
+.mock-vault-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.mock-search {
+  flex: 1 1 200px;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 9px 12px;
+  border: 1px solid #E5D8CC;
+  border-radius: 10px;
+  background: var(--white);
+  min-width: 0;
+}
+
+.mock-chips.small {
+  margin: 0;
+}
+
+.mock-chips.small button {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+.mock-toast {
+  background: var(--ink-900);
+  color: var(--white);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  margin-bottom: 12px;
+}
+
+.mock-share {
+  background: var(--white);
+  border: 1px solid #EFE4DB;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.mock-share label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mock-share input {
+  accent-color: var(--brand-600);
+}
+
+.mock-share .mock-award {
+  align-self: flex-start;
+  margin-left: 0;
+}
+
+.mock-docs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--white);
+  border: 1px solid #EFE4DB;
+  border-radius: 12px;
+  max-height: 430px;
+  overflow-y: auto;
+}
+
+.mock-docs li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #F5E6DA;
+}
+
+.mock-docs li:last-child {
+  border-bottom: none;
+}
+
+.mock-docs li.fresh {
+  background: var(--green-50);
+}
+
+.mock-doc-icon {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #F4F1EE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mock-doc-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mock-doc-body strong {
+  font-size: 0.9rem;
+  color: var(--ink-900);
+}
+
+.mock-doc-body small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.mock-docs .pill {
+  white-space: nowrap;
+}
+
+.mock-empty {
+  padding: 14px 0;
+}
+
+.mock-handover {
+  margin-top: 14px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border: 1px solid #EFE4DB;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.mock-handover > div {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .mock-vault {
+    grid-template-columns: 1fr;
+  }
+  .mock-folders {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid #EFE4DB;
+  }
+  .mock-folders button {
+    flex: none;
+    white-space: nowrap;
+  }
+  .mock-handover {
+    flex-direction: column;
+    align-items: stretch;
   }
 }

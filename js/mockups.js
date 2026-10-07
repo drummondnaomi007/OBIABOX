@@ -188,6 +188,200 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Document vault.
+  var vault = document.querySelector("[data-vault]");
+  if (vault) {
+    var FOLDERS = [
+      "Approvals & permits",
+      "Insurance",
+      "Trades & contracts",
+      "Inspections",
+      "End-of-job certificates",
+      "Neighbours & council",
+      "Plans & engineering"
+    ];
+    // status: ok | warn | missing | old. handover: needed in the final build file.
+    var DOCS = [
+      { name: "Certificate of Consent", folder: 0, link: "You", date: "Issued 2 Sep", status: "ok", label: "Current", handover: true },
+      { name: "Building permit BP-0000", folder: 0, link: "Example Building Surveying", date: "Issued 10 Oct", status: "ok", label: "Current", handover: true },
+      { name: "Planning permit: not required (council letter)", folder: 0, link: "City of Example", date: "28 Aug", status: "ok", label: "On file", handover: true },
+      { name: "White Card: Sam Taylor", folder: 0, link: "You", date: "Uploaded 1 Sep", status: "ok", label: "Current", handover: false },
+      { name: "Construction insurance policy", folder: 1, link: "You", date: "Renews 30 Jun", status: "ok", label: "Current", handover: true },
+      { name: "Public liability: owner", folder: 1, link: "You", date: "Renews in 62 days", status: "ok", label: "Current", handover: false },
+      { name: "Contract: Northside Framing", folder: 2, link: "Frame carpentry", date: "Signed 8 Jan", status: "ok", label: "Signed", handover: true },
+      { name: "Public liability: Northside Framing", folder: 2, link: "Frame carpentry", date: "Expires in 21 days", status: "warn", label: "Expiring", handover: false },
+      { name: "Contract: Flowright Plumbing", folder: 2, link: "Plumbing", date: "Signed 15 Dec", status: "ok", label: "Signed", handover: true },
+      { name: "Public liability: Bright Spark Electrical", folder: 2, link: "Electrical", date: "Requested 3 times", status: "missing", label: "Missing", handover: false },
+      { name: "Footings inspection: passed", folder: 3, link: "Footings stage", date: "18 Nov", status: "ok", label: "Passed", handover: true },
+      { name: "Slab inspection: passed", folder: 3, link: "Slab stage", date: "2 Dec", status: "ok", label: "Passed", handover: true },
+      { name: "Roof truss design certificate", folder: 3, link: "Frame stage", date: "Uploaded 3 Feb", status: "ok", label: "On file", handover: true },
+      { name: "Final inspection certificate", folder: 3, link: "Final stage", date: "After final inspection", status: "missing", label: "Missing", handover: true },
+      { name: "Plumbing compliance certificate", folder: 4, link: "Flowright Plumbing", date: "Due at completion", status: "missing", label: "Missing", handover: true },
+      { name: "Electrical safety certificate", folder: 4, link: "Bright Spark Electrical", date: "Due at completion", status: "missing", label: "Missing", handover: true },
+      { name: "Waterproofing certificate", folder: 4, link: "Out to tender", date: "Due at completion", status: "missing", label: "Missing", handover: true },
+      { name: "Asset protection permit + bond receipt", folder: 5, link: "City of Example", date: "Paid 20 Oct", status: "ok", label: "On file", handover: true },
+      { name: "Before photos (24)", folder: 5, link: "Asset protection", date: "22 Oct", status: "ok", label: "Locked", handover: true },
+      { name: "Dilapidation report: 10 Smith St", folder: 5, link: "Neighbour", date: "12 Mar", status: "ok", label: "On file", handover: true },
+      { name: "Dilapidation report: 14 Smith St", folder: 5, link: "Neighbour", date: "Needed before demolition", status: "missing", label: "Missing", handover: true },
+      { name: "Neighbour notice log (4 sends)", folder: 5, link: "Neighbours", date: "Last sent 2 Dec", status: "ok", label: "On file", handover: true },
+      { name: "Architectural plans rev C", folder: 6, link: "Issued for construction", date: "4 Oct", status: "ok", label: "Current", handover: true },
+      { name: "Architectural plans rev B", folder: 6, link: "Replaced by rev C", date: "12 Sep", status: "old", label: "Superseded", handover: false },
+      { name: "Structural engineering", folder: 6, link: "Issued for construction", date: "4 Oct", status: "ok", label: "Current", handover: true },
+      { name: "Soil report", folder: 6, link: "Site", date: "20 Aug", status: "ok", label: "On file", handover: true }
+    ];
+    var ICON = ["📄", "🛡", "👷", "🔍", "✅", "🏘", "📐"];
+    var PILL = { ok: "pill-green", warn: "pill-amber", missing: "pill-red", old: "pill-grey" };
+    var SNAPS = [
+      { replace: "Plumbing compliance certificate", link: "Flowright Plumbing", date: "Snapped today", label: "Current",
+        toast: "Read as a plumbing compliance certificate and filed under End-of-job certificates › Flowright Plumbing. One more ticked off for handover." },
+      { add: { name: "Timber delivery docket", folder: 2, link: "Frame carpentry", date: "Snapped today", status: "ok", label: "On file", handover: false },
+        toast: "Read as a delivery docket and filed under Trades & contracts › Northside Framing." }
+    ];
+
+    var folderEl = vault.querySelector("[data-folders]");
+    var listEl = vault.querySelector("[data-docs]");
+    var emptyEl = vault.querySelector("[data-docs-empty]");
+    var searchEl = vault.querySelector("[data-vault-search]");
+    var filterEl = vault.querySelector("[data-vault-filter]");
+    var toastEl = vault.querySelector("[data-vault-toast]");
+    var current = { folder: -1, filter: "all", q: "", fresh: null };
+    var snapCount = 0;
+
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.hidden = false;
+    }
+
+    function renderFolders() {
+      folderEl.innerHTML = "";
+      var names = ["All documents"].concat(FOLDERS);
+      names.forEach(function (name, i) {
+        var idx = i - 1;
+        var count = DOCS.filter(function (d) { return idx === -1 || d.folder === idx; }).length;
+        var alert = DOCS.some(function (d) { return (idx === -1 || d.folder === idx) && d.status === "missing"; });
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = idx === current.folder ? "on" : "";
+        var label = document.createElement("span");
+        label.textContent = (idx === -1 ? "🗂" : ICON[idx]) + " " + name;
+        var c = document.createElement("em");
+        c.textContent = count;
+        if (alert) c.className = "alert";
+        b.appendChild(label);
+        b.appendChild(c);
+        b.addEventListener("click", function () {
+          current.folder = idx;
+          renderFolders();
+          renderDocs();
+        });
+        folderEl.appendChild(b);
+      });
+    }
+
+    function renderDocs() {
+      var q = current.q.toLowerCase();
+      var shown = DOCS.filter(function (d) {
+        if (current.folder !== -1 && d.folder !== current.folder) return false;
+        if (current.filter !== "all" && d.status !== current.filter) return false;
+        if (q && (d.name + " " + d.link).toLowerCase().indexOf(q) === -1) return false;
+        return true;
+      });
+      listEl.innerHTML = "";
+      shown.forEach(function (d) {
+        var li = document.createElement("li");
+        if (d === current.fresh) li.className = "fresh";
+        var icon = document.createElement("span");
+        icon.className = "mock-doc-icon";
+        icon.textContent = ICON[d.folder];
+        var body = document.createElement("span");
+        body.className = "mock-doc-body";
+        var name = document.createElement("strong");
+        name.textContent = d.name;
+        var meta = document.createElement("small");
+        meta.textContent = FOLDERS[d.folder] + " · " + d.link + " · " + d.date;
+        body.appendChild(name);
+        body.appendChild(meta);
+        var pill = document.createElement("span");
+        pill.className = "pill " + PILL[d.status];
+        pill.textContent = d.label;
+        li.appendChild(icon);
+        li.appendChild(body);
+        li.appendChild(pill);
+        listEl.appendChild(li);
+      });
+      emptyEl.hidden = shown.length > 0;
+      renderHandover();
+    }
+
+    function renderHandover() {
+      var needed = DOCS.filter(function (d) { return d.handover; });
+      var ready = needed.filter(function (d) { return d.status === "ok"; });
+      vault.querySelector("[data-hand-count]").textContent = ready.length + " of " + needed.length;
+      vault.querySelector("[data-hand-bar]").style.width = Math.round((ready.length / needed.length) * 100) + "%";
+      vault.querySelector("[data-hand-missing]").textContent = needed
+        .filter(function (d) { return d.status !== "ok"; })
+        .map(function (d) { return d.name; })
+        .join(", ");
+    }
+
+    searchEl.addEventListener("input", function () {
+      current.q = searchEl.value.trim();
+      renderDocs();
+    });
+
+    filterEl.addEventListener("click", function (e) {
+      var btn = e.target.closest("button");
+      if (!btn) return;
+      filterEl.querySelectorAll("button").forEach(function (b) {
+        b.classList.toggle("on", b === btn);
+      });
+      current.filter = btn.getAttribute("data-filter");
+      renderDocs();
+    });
+
+    vault.querySelector("[data-snap]").addEventListener("click", function () {
+      var snap = SNAPS[snapCount];
+      if (!snap) {
+        toast("That's all the sample documents in this demo. In the app, you'd keep snapping as paperwork turns up.");
+        return;
+      }
+      snapCount += 1;
+      var doc;
+      if (snap.replace) {
+        doc = DOCS.filter(function (d) { return d.name === snap.replace; })[0];
+        doc.status = "ok";
+        doc.label = snap.label;
+        doc.date = snap.date;
+      } else {
+        doc = snap.add;
+        DOCS.push(doc);
+      }
+      current = { folder: doc.folder, filter: "all", q: "", fresh: doc };
+      searchEl.value = "";
+      filterEl.querySelectorAll("button").forEach(function (b) {
+        b.classList.toggle("on", b.getAttribute("data-filter") === "all");
+      });
+      renderFolders();
+      renderDocs();
+      toast(snap.toast);
+    });
+
+    var sharePanel = vault.querySelector("[data-share-panel]");
+    vault.querySelector("[data-share]").addEventListener("click", function () {
+      sharePanel.hidden = !sharePanel.hidden;
+    });
+    vault.querySelector("[data-copy]").addEventListener("click", function () {
+      sharePanel.hidden = true;
+      toast("Demo: link copied. Example Building Surveying can view the folders you ticked for the next 7 days, read-only.");
+    });
+    vault.querySelector("[data-download]").addEventListener("click", function () {
+      toast("Demo: in the app this downloads a zip of every document, sorted into folders, with a one-page index.");
+    });
+
+    renderFolders();
+    renderDocs();
+  }
+
   // Street map: click a lot to show its record.
   var card = document.querySelector("[data-lot-card]");
   if (card) {

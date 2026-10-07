@@ -15,12 +15,12 @@ about.html            About + "not legal or building advice"
 contact.html          Waitlist (mailto form)
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
-demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking
+demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
 js/guides.js          Guides page: ticks saved in localStorage, progress, print a single guide
-js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow)
+js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow, document vault)
 assets/               Logo + favicon
 ```
 
@@ -71,6 +71,8 @@ The app reuses the Tradies Bureau Compliance Tracker pattern: **an item with dat
 | Contract | trade, accepted quote, signed contract, contract sum, payment schedule (each stage optionally waits for an inspection) | payment due when linked inspection passes |
 | Variation | contract, description, cost, photos, requested by, approved in writing (date) | approve before work starts |
 | Inspection | stage (from the building permit), readiness checklist, documents shared with the surveyor, booked time, who's on site, result (passed / defects), defects list | book before work is covered; hold covering trades; release linked payment on pass |
+| Document | file, folder (approvals, insurance, trades & contracts, inspections, end-of-job certificates, neighbours & council, plans), linked trade/stage/neighbour, dates, expiry, version (current / superseded), needed for handover | before expiry; chase missing handover documents |
+| Share link | folders shared, recipient (e.g. building surveyor), read-only, expiry | link expiry |
 | End-of-job certificate | trade, type (plumbing compliance, electrical safety, waterproofing), document | collect before final payment |
 
 ### Neighbour notification flow
