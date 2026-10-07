@@ -74,7 +74,7 @@
   }
 
   // Pages that make up the build. Each one is an equal share of the house.
-  var PAGES = ["index", "features", "neighbours", "about", "contact", "demo/notice", "demo/project", "demo/app"];
+  var PAGES = ["index", "features", "neighbours", "guides", "about", "contact", "demo/notice", "demo/project", "demo/app"];
   var STORE_KEY = "obiab-build-v1";
   var memoryStore = {};
 

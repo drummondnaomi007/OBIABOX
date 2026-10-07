@@ -10,6 +10,7 @@ This repo is the marketing site and clickable mock-ups. Like Tradies Bureau, it'
 index.html            Home
 features.html         The five tools: compliance, neighbours, asset protection, dilapidation, trades/quotes/contracts
 neighbours.html       How neighbour notifications work
+guides.html           Eight step-by-step owner builder checklists (tick off, saved per device, print one guide)
 about.html            About + "not legal or building advice"
 contact.html          Waitlist (mailto form)
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
@@ -18,6 +19,7 @@ demo/app.html         App mockups: dashboard, notify neighbours, asset protectio
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
+js/guides.js          Guides page: ticks saved in localStorage, progress, print a single guide
 js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow)
 assets/               Logo + favicon
 ```
