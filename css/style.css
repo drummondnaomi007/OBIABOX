@@ -2250,6 +2250,7 @@ table.compliance-table th {
 
 @media print {
   .guide-foot button,
+  .guide-progress,
   .guide-link {
     display: none !important;
   }
