@@ -770,3 +770,212 @@ table.compliance-table th {
     padding: 0 !important;
   }
 }
+
+/* ---------- Line-drawn house ---------- */
+
+.house-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.house-line.ground {
+  stroke-width: 2;
+  opacity: 0.6;
+}
+
+.house-line.stud {
+  stroke-width: 1.5;
+  opacity: 0.55;
+}
+
+.house-line.detail {
+  stroke-width: 2;
+}
+
+.house-line.tick {
+  stroke-width: 4;
+  color: var(--green);
+}
+
+/* Hero: faint plan-style drawing on a blueprint grid */
+.hero.has-house {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(194, 65, 12, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(194, 65, 12, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at top right, var(--brand-50), var(--white) 60%);
+  background-size: 28px 28px, 28px 28px, auto;
+}
+
+.hero.has-house > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-house {
+  position: absolute;
+  right: max(16px, calc((100vw - var(--max-width)) / 2 - 40px));
+  bottom: 0;
+  width: min(46%, 520px);
+  height: auto;
+  color: var(--brand-600);
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.house-ghost {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 3 4;
+  opacity: 0.18;
+}
+
+.house-ghost.tick {
+  display: none;
+}
+
+/* Home: the house draws itself inside the project card */
+.card-house {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: -6px 0 8px auto;
+  color: var(--brand-600);
+}
+
+.card-house .house-line,
+.hero-house .house-line {
+  stroke-dashoffset: 0;
+}
+
+.card-house.animate .house-line,
+.hero-house.animate .house-line {
+  stroke-dashoffset: 1;
+  animation: house-draw 0.7s ease-out forwards;
+  animation-delay: calc(var(--i) * 0.12s + 0.2s);
+}
+
+@keyframes house-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Floating build tracker */
+.build-tracker {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 40;
+  width: 132px;
+  padding: 10px 12px 12px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #F3D9C6;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px -12px rgba(31, 41, 51, 0.35);
+  color: var(--ink-900);
+  pointer-events: none;
+  text-align: center;
+}
+
+.tracker-house {
+  width: 100%;
+  height: auto;
+  color: var(--brand-600);
+}
+
+.build-stage {
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.build-bar {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--brand-50);
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.build-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--brand-600);
+  transition: width 0.15s linear;
+}
+
+.build-tracker.done .build-stage {
+  color: var(--green);
+}
+
+.build-tracker.done .build-bar span {
+  background: var(--green);
+}
+
+@media (max-width: 760px) {
+  .hero-house {
+    width: 70%;
+    right: -10%;
+    top: 16px;
+    bottom: auto;
+    opacity: 0.1;
+  }
+  .build-tracker {
+    width: 76px;
+    right: 8px;
+    bottom: 8px;
+    padding: 5px 6px 6px;
+    border-radius: 12px;
+  }
+  .build-stage {
+    font-size: 0.62rem;
+  }
+  .build-bar {
+    margin-top: 4px;
+    height: 3px;
+  }
+  .card-house {
+    width: 120px;
+  }
+  /* Room for the tracker below the last footer line */
+  .has-tracker .site-footer {
+    padding-bottom: 110px;
+  }
+}
+
+@media (min-width: 761px) {
+  /* Keep the footer's right-hand text clear of the tracker */
+  .has-tracker .footer-bottom {
+    padding-right: 140px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-house.animate .house-line,
+  .hero-house.animate .house-line {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .build-bar span {
+    transition: none;
+  }
+}
+
+@media print {
+  .build-tracker,
+  .card-house,
+  .hero-house {
+    display: none !important;
+  }
+}
