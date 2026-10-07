@@ -28,7 +28,15 @@ python3 -m http.server 8000
 
 ## Deploying
 
-Same as Tradies Bureau: GitHub Pages from `main`, root folder. There's no `CNAME` yet. Add one once a domain is chosen.
+GitHub Pages from `main`, root folder, served at **https://obiab.tradiesbureau.com** (set by the `CNAME` file).
+
+DNS record at the tradiesbureau.com DNS provider (Panthur):
+
+| Type | Host/Name | Value |
+|---|---|---|
+| CNAME | `obiab` | `drummondnaomi007.github.io` |
+
+Once GitHub verifies the domain and issues a certificate, tick **Enforce HTTPS** under Settings → Pages.
 
 ## Product outline (for the app build)
 
