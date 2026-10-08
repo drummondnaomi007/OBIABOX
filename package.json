@@ -1,0 +1,13 @@
+{
+  "name": "obiabox",
+  "private": true,
+  "description": "Owner Builder in a Box marketing site and mockups. No build step; this file only holds the browser tests.",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed --project=desktop",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}

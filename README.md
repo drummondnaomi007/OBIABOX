@@ -22,6 +22,8 @@ js/house.js           Line-drawn house: hero drawing + build tracker that builds
 js/guides.js          Guides page: ticks saved in localStorage, progress, print a single guide
 js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow, document vault, letterbox drop map, surveyor view)
 assets/               Logo + favicon
+tests/                Playwright browser tests (see Testing)
+playwright.config.js  Test settings: desktop + phone, local server on port 4173
 ```
 
 ## Running locally
@@ -30,6 +32,38 @@ assets/               Logo + favicon
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
+
+## Testing
+
+Browser tests use [Playwright](https://playwright.dev). They start a local server for you, open every page at desktop and phone widths, and click through the house tracker, the guides, the demo pages and every app mockup.
+
+One-time setup (needs Node.js 18+ and Python 3):
+
+```bash
+npm install
+npx playwright install chromium
+```
+
+Run the tests:
+
+```bash
+npm test                 # everything, desktop + phone
+npm run test:headed      # watch it click through in a real browser window
+npx playwright test tests/guides.spec.js   # just one file
+npm run test:report      # open the last HTML report (after a CI-style run)
+```
+
+| File | What it checks |
+|---|---|
+| `tests/layout.spec.js` | Every page loads with no errors, fits the screen with no sideways scroll, menu works, no broken internal links (desktop and phone) |
+| `tests/house.spec.js` | Hero house, tracker stages, building across pages, handover and Build again, reduced motion |
+| `tests/guides.spec.js` | Eight guides, ticks saved after reload, Clear ticks, printing one guide |
+| `tests/demo-pages.spec.js` | Letterbox notice print layout, neighbour sign-up demo message |
+| `tests/mockups.spec.js` | All 11 app mockups: chips, map, quotes, variations, inspection booking, vault, letterbox drop, surveyor view |
+
+GitHub Actions runs the same tests on every push to `main` and on pull requests (`.github/workflows/tests.yml`). If a run fails, the screenshots and traces are attached to the run as `playwright-report`.
+
+When you change the site, update or add a test next to the feature you touched. Tests find things by the `data-*` attributes in the HTML, so keep those when restyling.
 
 ## Deploying
 
