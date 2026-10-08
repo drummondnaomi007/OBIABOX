@@ -1,8 +1,9 @@
 {
   "name": "obiabox",
   "private": true,
-  "description": "Owner Builder in a Box marketing site and mockups. No build step; this file only holds the browser tests.",
+  "description": "Owner Builder in a Box marketing site and mockups. No build step: npm start previews it, npm test runs the browser tests.",
   "scripts": {
+    "start": "node scripts/serve.js 8000",
     "test": "playwright test",
     "test:headed": "playwright test --headed --project=desktop",
     "test:report": "playwright show-report"

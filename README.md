@@ -24,20 +24,27 @@ js/mockups.js         Interactions for demo/app.html (house stage, message chips
 assets/               Logo + favicon
 tests/                Playwright browser tests (see Testing)
 playwright.config.js  Test settings: desktop + phone, local server on port 4173
+scripts/serve.js      Local preview server (npm start)
 ```
 
 ## Running locally
 
+You need [Node.js](https://nodejs.org) (the LTS version). On Windows you can also install it with `winget install OpenJS.NodeJS.LTS`.
+
 ```bash
-python3 -m http.server 8000
-# then open http://localhost:8000
+npm start
+# then open http://localhost:8000  (Ctrl+C to stop)
 ```
+
+That runs `scripts/serve.js`, a tiny built-in server with nothing to install. It works the same on Windows, Mac and Linux.
+
+No Node? You can also double-click `index.html` to open the site straight in your browser, or use the live site.
 
 ## Testing
 
 Browser tests use [Playwright](https://playwright.dev). They start a local server for you, open every page at desktop and phone widths, and click through the house tracker, the guides, the demo pages and every app mockup.
 
-One-time setup (needs Node.js 18+ and Python 3):
+One-time setup (needs Node.js 18 or newer):
 
 ```bash
 npm install

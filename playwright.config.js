@@ -1,5 +1,5 @@
 // Browser tests for the OBIAB site. Run with: npm test
-// The config starts a local static server (python3 -m http.server) for you.
+// The config starts the local preview server (scripts/serve.js) for you.
 const { defineConfig } = require("@playwright/test");
 
 const PORT = 4173;
@@ -28,7 +28,7 @@ module.exports = defineConfig({
     }
   ],
   webServer: {
-    command: `python3 -m http.server ${PORT}`,
+    command: `node scripts/serve.js ${PORT}`,
     url: `http://localhost:${PORT}/`,
     reuseExistingServer: !process.env.CI,
     stdout: "ignore",
