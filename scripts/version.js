@@ -56,6 +56,8 @@ function check() {
     if (site !== v.site) problems.push(`${rel(page)}: website version is ${site || "missing"}, expected ${v.site}`);
     if (!/<script src="(\.\.\/)?js\/version\.js"><\/script>/.test(html)) problems.push(`${rel(page)}: js/version.js isn't loaded`);
     if (!html.includes("data-version-info")) problems.push(`${rel(page)}: footer has no version slot`);
+    if (!/<script src="(\.\.\/)?js\/config\.js"><\/script>/.test(html)) problems.push(`${rel(page)}: js/config.js (site settings) isn't loaded`);
+    if (!/<script src="(\.\.\/)?js\/analytics\.js"><\/script>/.test(html)) problems.push(`${rel(page)}: js/analytics.js (visitor stats) isn't loaded`);
   }
 
   // Share links and sitemap all use the web address in version.json.

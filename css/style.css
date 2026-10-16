@@ -3160,3 +3160,28 @@ table.compliance-table th {
 .card-link h3 {
   color: var(--brand-600);
 }
+
+/* Waitlist: embedded Tally form and send status */
+.waitlist-frame {
+  width: 100%;
+  min-height: 520px;
+  border: 0;
+  display: block;
+}
+
+.waitlist-status {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+
+.waitlist-status.ok {
+  background: var(--green-50);
+  color: #145a2a;
+}
+
+.waitlist-status.error {
+  background: #fbe3e0;
+  color: #8a2a1f;
+}

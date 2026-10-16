@@ -24,6 +24,9 @@ demo/project.html     Sample neighbour page, which is what the QR code opens (de
 demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault, letterbox drop map, surveyor shared view
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
+js/config.js          Site settings: Tally form ID and Cloudflare stats token
+js/analytics.js       Visitor stats loader (Cloudflare Web Analytics)
+js/waitlist.js        Waitlist form: Tally embed, form service, or email fallback
 js/version.js         Footer versions, In sync badge, out-of-date banners
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
 js/guides.js          Guides page: ticks saved in localStorage, progress, print a single guide
@@ -48,12 +51,39 @@ That runs `scripts/serve.js`, a tiny built-in server with nothing to install. It
 
 No Node? You can also double-click `index.html` to open the site straight in your browser, or use the live site.
 
+## Waitlist form and visitor stats
+
+Both are switched on in **`js/config.js`**. Until you paste in an ID, the site works as before: the waitlist opens the visitor's email app, and no stats are collected.
+
+### Waitlist form (Tally, free)
+
+1. Sign up at [tally.so](https://tally.so) with hello@tradiesbureau.com.
+2. Create a form with these questions: **Name**, **Email**, **Project suburb & council**, **Where are you up to?** (Just researching / Getting permits or Certificate of Consent / Building now / I'm a surveyor, council or trade) and **What's been the hardest part?**
+3. In the form's **Settings**, turn on **Self email notifications** so each sign-up is emailed to you.
+4. Press **Publish**, then **Share**. The link looks like `https://tally.so/r/wAbC12`. Copy the last part.
+5. Put it in `js/config.js`: `tallyFormId: "wAbC12"`.
+
+Sign-ups are stored in Tally (Submissions tab, exportable to CSV or Google Sheets). The contact page embeds the form and keeps a "open it in a new tab" link and the email address as a backup.
+
+*Prefer to keep this site's own form design?* Use a form service that accepts a JSON POST, such as Formspree (free plan: 50 sign-ups a month), and set `waitlistEndpoint` instead. If you do, change "Tally" on the privacy page.
+
+### Visitor stats (Cloudflare Web Analytics, free)
+
+1. Sign up at [cloudflare.com](https://dash.cloudflare.com/sign-up) (free).
+2. Go to **Analytics & Logs → Web Analytics → Add a site**, and enter the site's address (for now `drummondnaomi007.github.io`). Don't move the domain or DNS to Cloudflare.
+3. It shows a JavaScript snippet containing `"token": "…"`. Copy just the token.
+4. Put it in `js/config.js`: `cloudflareAnalyticsToken: "…"`.
+
+Stats appear in the Cloudflare dashboard within a few minutes: visits per page, where visitors came from, country and device. No cookies, no personal data, and visitors whose browser sends Do Not Track or Global Privacy Control aren't counted. Visits from your own computer while testing (`npm start`, localhost) aren't counted either. Ad blockers can hide some visits, so treat the numbers as a floor.
+
+After changing `js/config.js`, bump the site version (`npm run version:bump -- site patch`), note it in What's new, and push.
+
 ## Versions: website and app
 
 Both the website and the app have a version number (like `0.5.0`). They live in one place, `version.json`:
 
 ```json
-{ "site": "0.5.0", "app": "0.5.0", "released": "2026-10-16", "appVersionUrl": null, "siteUrl": "https://drummondnaomi007.github.io/OBIABOX/" }
+{ "site": "0.6.0", "app": "0.5.0", "released": "2026-10-16", "appVersionUrl": null, "siteUrl": "https://drummondnaomi007.github.io/OBIABOX/" }
 ```
 
 - **site** is the website. Every page carries it in `<meta name="obiab-site-version">`.
@@ -114,6 +144,7 @@ npm run test:report      # open the last HTML report (after a CI-style run)
 | `tests/mockups.spec.js` | All 11 app mockups: chips, map, quotes, variations, inspection booking, vault, letterbox drop, surveyor view |
 | `tests/version.spec.js` | Footer versions, In sync / Out of sync, out-of-date and mismatch banners, live app check, What's new |
 | `tests/a11y.spec.js` | Automated accessibility checks (WCAG 2.1 AA, using axe) on every page, desktop and phone |
+| `tests/integrations.spec.js` | Waitlist form (email fallback, Tally embed, form service success and failure) and visitor stats (on/off, Do Not Track, Global Privacy Control) |
 | `tests/edge-cases.spec.js` | No JavaScript, blocked browser storage, "find out more" paths, email fallback, share previews, sitemap, 404 |
 
 GitHub Actions runs the same tests on every push to `main` and on pull requests (`.github/workflows/tests.yml`). If a run fails, the screenshots and traces are attached to the run as `playwright-report`.
