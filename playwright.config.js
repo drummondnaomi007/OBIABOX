@@ -21,9 +21,9 @@ module.exports = defineConfig({
       use: { browserName: "chromium", viewport: { width: 1280, height: 900 } }
     },
     {
-      // Phone width: layout checks only.
+      // Phone width: layout and accessibility checks.
       name: "mobile",
-      testMatch: /layout\.spec\.js/,
+      testMatch: /(layout|a11y)\.spec\.js/,
       use: { browserName: "chromium", viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }
     }
   ],

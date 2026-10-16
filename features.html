@@ -5,10 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Features — Owner Builder in a Box</title>
 <meta name="description" content="Compliance tracking, neighbour notifications, asset protection permits and dilapidation reports for owner builders." />
+<meta name="obiab-site-version" content="0.5.0" />
+<meta name="theme-color" content="#C2410C" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Owner Builder in a Box" />
+<meta property="og:title" content="Features — Owner Builder in a Box" />
+<meta property="og:description" content="Compliance tracking, neighbour notifications, asset protection permits and dilapidation reports for owner builders." />
+<meta property="og:url" content="https://drummondnaomi007.github.io/OBIABOX/features.html" />
+<meta property="og:image" content="https://drummondnaomi007.github.io/OBIABOX/assets/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
   <nav class="nav">
@@ -16,7 +27,7 @@
       <img src="assets/logo.svg" alt="" class="brand-logo">
       Owner Builder in a Box
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="site-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="features.html" class="active">Features</a></li>
       <li><a href="neighbours.html">Neighbour Notices</a></li>
@@ -25,11 +36,11 @@
       <li><a href="contact.html">Contact</a></li>
       <li><a href="contact.html" class="nav-cta">Join the waitlist</a></li>
     </ul>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">&#9776;</button>
   </nav>
 </header>
 
-<main>
+<main id="main">
   <section class="hero">
     <div class="container">
       <span class="badge-mvp"><span class="badge-dot"></span> In development, waitlist open</span>
@@ -144,7 +155,7 @@
         <h2>Every neighbouring property, before and after</h2>
         <p>A dilapidation report records the condition of neighbouring properties before work starts. Track one per property, who wrote it, and whether the neighbour has a copy.</p>
       </div>
-      <div class="table-wrap">
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Dilapidation register example">
         <table class="register">
           <thead>
             <tr><th>Property</th><th>Pre-works report</th><th>Copy to neighbour</th><th>Post-works report</th><th>Status</th></tr>
@@ -216,6 +227,8 @@
           <li><a href="features.html">Features</a></li>
           <li><a href="neighbours.html">Neighbour notices</a></li>
           <li><a href="guides.html">Owner builder guides</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="changelog.html">What's new</a></li>
           <li><a href="demo/notice.html">Sample letterbox notice</a></li>
           <li><a href="demo/project.html">Sample neighbour page</a></li>
           <li><a href="demo/app.html">App mockups</a></li>
@@ -230,13 +243,14 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> Tradies Bureau. All rights reserved.</span>
-      <span>Not legal or building advice</span>
+      <span>&copy; <span data-year>2026</span> Tradies Bureau. Not legal or building advice.</span>
+      <span class="footer-meta"><a href="privacy.html">Privacy</a><span class="version-info" data-version-info></span></span>
     </div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/version.js"></script>
 <script src="js/house.js"></script>
 </body>
 </html>

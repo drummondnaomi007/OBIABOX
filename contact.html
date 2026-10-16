@@ -5,10 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Join the Waitlist — Owner Builder in a Box</title>
 <meta name="description" content="Join the Owner Builder in a Box waitlist or get in touch." />
+<meta name="obiab-site-version" content="0.5.0" />
+<meta name="theme-color" content="#C2410C" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Owner Builder in a Box" />
+<meta property="og:title" content="Join the Waitlist — Owner Builder in a Box" />
+<meta property="og:description" content="Join the Owner Builder in a Box waitlist or get in touch." />
+<meta property="og:url" content="https://drummondnaomi007.github.io/OBIABOX/contact.html" />
+<meta property="og:image" content="https://drummondnaomi007.github.io/OBIABOX/assets/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
   <nav class="nav">
@@ -16,7 +27,7 @@
       <img src="assets/logo.svg" alt="" class="brand-logo">
       Owner Builder in a Box
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="site-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="features.html">Features</a></li>
       <li><a href="neighbours.html">Neighbour Notices</a></li>
@@ -25,11 +36,11 @@
       <li><a href="contact.html" class="active">Contact</a></li>
       <li><a href="contact.html" class="nav-cta">Join the waitlist</a></li>
     </ul>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">&#9776;</button>
   </nav>
 </header>
 
-<main>
+<main id="main">
   <section class="hero">
     <div class="container">
       <span class="eyebrow">Join the waitlist</span>
@@ -45,7 +56,7 @@
           <div class="icon">@</div>
           <div>
             <h3 style="margin:0 0 4px;color:var(--ink-900);">Email</h3>
-            <p style="margin:0;"><a href="mailto:hello@tradiesbureau.com">hello@tradiesbureau.com</a></p>
+            <p style="margin:0;"><a href="mailto:hello@tradiesbureau.com">hello@tradiesbureau.com</a> <button type="button" class="copy-btn" data-copy-text="hello@tradiesbureau.com">Copy</button></p>
           </div>
         </div>
         <div class="contact-item">
@@ -60,6 +71,7 @@
       <div class="card">
         <h3 style="margin-top:0;">Waitlist</h3>
         <p style="color:var(--muted);">This form opens your email app with the details filled in. Nothing is stored or sent anywhere else.</p>
+        <p class="notice-box" style="margin-top:0;">Nothing happened when you pressed the button? Your device may not have an email app set up. Copy our address, <strong>hello@tradiesbureau.com</strong>, and email us from Gmail, Outlook or your phone instead.</p>
         <form class="form-stack" action="mailto:hello@tradiesbureau.com?subject=Owner%20Builder%20in%20a%20Box%20waitlist" method="post" enctype="text/plain">
           <label for="name">Name</label>
           <input id="name" name="name" type="text" required />
@@ -96,6 +108,8 @@
           <li><a href="features.html">Features</a></li>
           <li><a href="neighbours.html">Neighbour notices</a></li>
           <li><a href="guides.html">Owner builder guides</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="changelog.html">What's new</a></li>
           <li><a href="demo/notice.html">Sample letterbox notice</a></li>
           <li><a href="demo/project.html">Sample neighbour page</a></li>
           <li><a href="demo/app.html">App mockups</a></li>
@@ -110,13 +124,14 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> Tradies Bureau. All rights reserved.</span>
-      <span>Not legal or building advice</span>
+      <span>&copy; <span data-year>2026</span> Tradies Bureau. Not legal or building advice.</span>
+      <span class="footer-meta"><a href="privacy.html">Privacy</a><span class="version-info" data-version-info></span></span>
     </div>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/version.js"></script>
 <script src="js/house.js"></script>
 </body>
 </html>

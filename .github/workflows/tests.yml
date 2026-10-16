@@ -16,6 +16,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Website and app versions in sync
+        run: npm run version:check
       - run: npx playwright install --with-deps chromium
       - run: npm test
       - uses: actions/upload-artifact@v4

@@ -1,8 +1,8 @@
 // Every page loads cleanly and fits the screen (runs at desktop and phone widths).
 const { test, expect } = require("@playwright/test");
-const { PAGES, watchErrors, expectNoSidewaysScroll } = require("./helpers");
+const { ALL_PAGES, watchErrors, expectNoSidewaysScroll, expectNothingOffScreen } = require("./helpers");
 
-for (const path of PAGES) {
+for (const path of ALL_PAGES) {
   test(`${path} loads without errors and fits the screen`, async ({ page }) => {
     const errors = watchErrors(page);
     await page.goto(path);
@@ -11,6 +11,7 @@ for (const path of PAGES) {
     await expect(page.locator(".site-footer")).toBeVisible();
     await expect(page.locator(".build-tracker")).toBeVisible();
     await expectNoSidewaysScroll(page);
+    await expectNothingOffScreen(page);
     expect(errors).toEqual([]);
   });
 }
@@ -30,17 +31,34 @@ test("the menu button opens and closes the menu on small screens", async ({ page
   const toggle = page.locator(".nav-toggle");
   const links = page.locator(".nav-links");
   await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(links).not.toHaveClass(/open/);
   await toggle.click();
   await expect(links).toHaveClass(/open/);
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
   await expect(links.getByRole("link", { name: "Guides" })).toBeVisible();
   await toggle.click();
   await expect(links).not.toHaveClass(/open/);
+
+  // Escape closes it and returns focus to the button.
+  await toggle.click();
+  await page.keyboard.press("Escape");
+  await expect(links).not.toHaveClass(/open/);
+  await expect(toggle).toBeFocused();
+});
+
+test("the first Tab press reaches the skip link, which jumps to the content", async ({ page }) => {
+  await page.goto("features.html");
+  await page.keyboard.press("Tab");
+  const skip = page.locator(".skip-link");
+  await expect(skip).toBeFocused();
+  await expect(skip).toBeVisible();
+  await expect(page.locator("main#main")).toHaveCount(1);
 });
 
 test("internal links point at pages that exist", async ({ page, request }) => {
   const seen = new Set();
-  for (const path of PAGES) {
+  for (const path of ALL_PAGES) {
     await page.goto(path);
     const hrefs = await page.$$eval("a[href]", (as) => as.map((a) => a.href));
     for (const href of hrefs) {

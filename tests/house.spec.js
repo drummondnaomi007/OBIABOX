@@ -21,7 +21,7 @@ test("tracker moves through the stages as you scroll one page", async ({ page })
   await expect(stage).toHaveText("Site set-out");
   await expect(page.locator(".build-count")).toHaveText(`1 of ${PAGES.length} pages`);
   await scrollToFraction(page, 1);
-  // One page out of nine is about 11% of the build: the slab stage.
+  // One page out of ten is 10% of the build: the slab stage.
   await expect(stage).toHaveText("Slab");
 });
 

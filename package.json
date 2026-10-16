@@ -4,11 +4,14 @@
   "description": "Owner Builder in a Box marketing site and mockups. No build step: npm start previews it, npm test runs the browser tests.",
   "scripts": {
     "start": "node scripts/serve.js 8000",
+    "version:check": "node scripts/version.js check",
+    "version:bump": "node scripts/version.js bump",
     "test": "playwright test",
     "test:headed": "playwright test --headed --project=desktop",
     "test:report": "playwright show-report"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "1.56.1"
   }
 }

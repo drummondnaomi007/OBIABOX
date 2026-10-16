@@ -12,12 +12,19 @@ features.html         The five tools: compliance, neighbours, asset protection, 
 neighbours.html       How neighbour notifications work
 guides.html           Eight step-by-step owner builder checklists (tick off, saved per device, print one guide)
 about.html            About + "not legal or building advice"
-contact.html          Waitlist (mailto form)
+contact.html          Waitlist (mailto form, with copy-email fallback)
+faq.html              Common questions answered
+privacy.html          Plain-English privacy page (DRAFT, review before launch)
+changelog.html        What's new: version history
+404.html              Friendly page for broken links
+version.json          Website and app versions (single source of truth)
+sitemap.xml, robots.txt  For search engines
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
 demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault, letterbox drop map, surveyor shared view
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
+js/version.js         Footer versions, In sync badge, out-of-date banners
 js/house.js           Line-drawn house: hero drawing + build tracker that builds across pages (progress kept in localStorage)
 js/guides.js          Guides page: ticks saved in localStorage, progress, print a single guide
 js/mockups.js         Interactions for demo/app.html (house stage, message chips, photo sketches, street map, award quote, approve variation, inspection booking flow, document vault, letterbox drop map, surveyor view)
@@ -25,6 +32,7 @@ assets/               Logo + favicon
 tests/                Playwright browser tests (see Testing)
 playwright.config.js  Test settings: desktop + phone, local server on port 4173
 scripts/serve.js      Local preview server (npm start)
+scripts/version.js    version:check, version:bump, site-url
 ```
 
 ## Running locally
@@ -39,6 +47,43 @@ npm start
 That runs `scripts/serve.js`, a tiny built-in server with nothing to install. It works the same on Windows, Mac and Linux.
 
 No Node? You can also double-click `index.html` to open the site straight in your browser, or use the live site.
+
+## Versions: website and app
+
+Both the website and the app have a version number (like `0.5.0`). They live in one place, `version.json`:
+
+```json
+{ "site": "0.5.0", "app": "0.5.0", "released": "2026-10-16", "appVersionUrl": null, "siteUrl": "https://drummondnaomi007.github.io/OBIABOX/" }
+```
+
+- **site** is the website. Every page carries it in `<meta name="obiab-site-version">`.
+- **app** is the app. Until the real app exists, the app mockups (`demo/app.html`) carry it in `<meta name="obiab-app-version">`.
+- **In sync** means: every page has the current website version, the mockups match the app version, and What's new (`changelog.html`) has an entry for the current version. Once the real app is live, the website and live app must also share the same *major.minor* (for example 1.4.x and 1.4.y).
+
+**What people see:** every footer shows `Website v0.5.0 · App v0.5.0` with an **In sync** or **Out of sync** badge, linking to What's new. If someone has an old cached copy of a page, or the mockups don't match the app, a banner tells them at the top of the page.
+
+**Changing the site or app:**
+
+```bash
+npm run version:bump -- site patch    # small website fix: 0.5.0 → 0.5.1
+npm run version:bump -- site minor    # new website content: 0.5.0 → 0.6.0
+npm run version:bump -- app minor     # app changed (also bumps the website patch)
+npm run version:bump -- both minor    # a release that changes both
+```
+
+Then replace the `TODO` in `changelog.html` with what changed, in plain words, and run:
+
+```bash
+npm run version:check
+```
+
+It fails, and so does GitHub on every push, if any page, the mockups or What's new is out of sync, or the TODO is still there.
+
+Rule of thumb: **major** for big changes that break how people use it (and 1.0.0 at launch), **minor** for new features or pages, **patch** for fixes and wording.
+
+**When the real app goes live:** have it publish a small file such as `https://app.example.com/version.json` containing `{ "version": "1.0.0" }`, then put that address in `appVersionUrl`. The website checks the live app too and warns visitors if it has moved on.
+
+**When you get a domain:** `node scripts/version.js site-url https://obiab.tradiesbureau.com/` moves every share preview, the sitemap and robots.txt to the new address. Then add the `CNAME` file.
 
 ## Testing
 
@@ -62,11 +107,14 @@ npm run test:report      # open the last HTML report (after a CI-style run)
 
 | File | What it checks |
 |---|---|
-| `tests/layout.spec.js` | Every page loads with no errors, fits the screen with no sideways scroll, menu works, no broken internal links (desktop and phone) |
+| `tests/layout.spec.js` | Every page loads with no errors, fits the screen with no sideways scroll, menu works (incl. Escape and screen-reader state), skip link, no broken internal links (desktop and phone) |
 | `tests/house.spec.js` | Hero house, tracker stages, building across pages, handover and Build again, reduced motion |
 | `tests/guides.spec.js` | Eight guides, ticks saved after reload, Clear ticks, printing one guide |
 | `tests/demo-pages.spec.js` | Letterbox notice print layout, neighbour sign-up demo message |
 | `tests/mockups.spec.js` | All 11 app mockups: chips, map, quotes, variations, inspection booking, vault, letterbox drop, surveyor view |
+| `tests/version.spec.js` | Footer versions, In sync / Out of sync, out-of-date and mismatch banners, live app check, What's new |
+| `tests/a11y.spec.js` | Automated accessibility checks (WCAG 2.1 AA, using axe) on every page, desktop and phone |
+| `tests/edge-cases.spec.js` | No JavaScript, blocked browser storage, "find out more" paths, email fallback, share previews, sitemap, 404 |
 
 GitHub Actions runs the same tests on every push to `main` and on pull requests (`.github/workflows/tests.yml`). If a run fails, the screenshots and traces are attached to the run as `playwright-report`.
 

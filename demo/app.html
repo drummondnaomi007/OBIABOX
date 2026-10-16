@@ -5,10 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>App Mockups — Owner Builder in a Box</title>
 <meta name="description" content="Design mockups of the Owner Builder in a Box app: dashboard, neighbour updates, asset protection photos and a dilapidation street map." />
+<meta name="obiab-site-version" content="0.5.0" />
+<meta name="obiab-app-version" content="0.5.0" />
+<meta name="theme-color" content="#C2410C" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Owner Builder in a Box" />
+<meta property="og:title" content="App Mockups — Owner Builder in a Box" />
+<meta property="og:description" content="Design mockups of the Owner Builder in a Box app: dashboard, neighbour updates, asset protection photos and a dilapidation street map." />
+<meta property="og:url" content="https://drummondnaomi007.github.io/OBIABOX/demo/app.html" />
+<meta property="og:image" content="https://drummondnaomi007.github.io/OBIABOX/assets/og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-header">
   <nav class="nav">
@@ -16,7 +28,7 @@
       <img src="../assets/logo.svg" alt="" class="brand-logo">
       Owner Builder in a Box
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="site-nav">
       <li><a href="../index.html">Home</a></li>
       <li><a href="../features.html" class="active">Features</a></li>
       <li><a href="../neighbours.html">Neighbour Notices</a></li>
@@ -25,15 +37,16 @@
       <li><a href="../contact.html">Contact</a></li>
       <li><a href="../contact.html" class="nav-cta">Join the waitlist</a></li>
     </ul>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">&#9776;</button>
   </nav>
 </header>
 
-<main>
+<main id="main">
   <section class="hero" style="padding-bottom:40px;">
     <div class="container">
       <span class="eyebrow">App mockups</span>
       <h1>Inside the box</h1>
+      <noscript><p class="noscript-note">These mockups need JavaScript to show their sample data and buttons. Turn it on to try them, or read about each tool on the <a href="../features.html">features page</a>.</p></noscript>
       <p class="lede">What owner builders see once they're signed in. These are design mockups with made-up data. The buttons and chips you can click only change the preview.</p>
       <nav class="mock-jump" aria-label="Jump to a mockup">
         <a href="#dashboard">Dashboard</a>
@@ -63,7 +76,7 @@
       <div class="mock-browser">
         <div class="mock-bar"><span></span><span></span><span></span><em>Owner Builder in a Box · 12 Smith St</em></div>
         <div class="mock-app">
-          <aside class="mock-side">
+          <aside class="mock-side" tabindex="0" aria-label="App menu (mockup)">
             <div class="mock-brand">OBIAB</div>
             <a class="on">Dashboard</a>
             <a>Compliance</a>
@@ -233,7 +246,7 @@
 
       <div class="mock-street-wrap">
         <div class="mock-panel">
-          <svg class="mock-street" viewBox="0 -70 640 400" role="img" aria-label="Street map mockup showing the project lot and neighbouring lots coloured by dilapidation report status">
+          <svg class="mock-street" viewBox="0 -70 640 400" role="group" aria-label="Street map mockup showing the project lot and neighbouring lots coloured by dilapidation report status">
             <rect x="0" y="150" width="640" height="56" class="road"/>
             <line x1="0" y1="178" x2="640" y2="178" class="road-line"/>
             <text x="20" y="183" class="road-name">SMITH STREET</text>
@@ -292,7 +305,7 @@
             </div>
             <span class="pill pill-red">1 trade can't start yet</span>
           </div>
-          <div class="table-wrap">
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Trades register table">
             <table class="register mock-table">
               <thead>
                 <tr><th>Trade</th><th>Business</th><th>Licence / registration</th><th>Public liability</th><th>WorkCover</th><th>End-of-job certificate</th></tr>
@@ -571,7 +584,7 @@
               <button type="button" class="mock-award small" data-copy>Copy link</button>
             </div>
 
-            <ul class="mock-docs" data-docs aria-live="polite"></ul>
+            <ul class="mock-docs" data-docs aria-live="polite" tabindex="0" aria-label="Documents"></ul>
             <p class="mock-muted mock-empty" data-docs-empty hidden>Nothing matches. Try another folder or search.</p>
 
             <div class="mock-handover">
@@ -629,7 +642,7 @@
               <button type="button" class="on" data-area="block">The whole block</button>
               <button type="button" data-area="wide">Wider (crane or road closure)</button>
             </div>
-            <ul class="mock-list compact mock-drop-list" data-drop-list></ul>
+            <ul class="mock-list compact mock-drop-list" data-drop-list tabindex="0" aria-label="Houses in this drop"></ul>
           </div>
           <div class="mock-panel">
             <div class="mock-label">Signed up from the QR code</div>
@@ -765,6 +778,8 @@
           <li><a href="../features.html">Features</a></li>
           <li><a href="../neighbours.html">Neighbour notices</a></li>
           <li><a href="../guides.html">Owner builder guides</a></li>
+          <li><a href="../faq.html">FAQ</a></li>
+          <li><a href="../changelog.html">What's new</a></li>
           <li><a href="../demo/notice.html">Sample letterbox notice</a></li>
           <li><a href="../demo/project.html">Sample neighbour page</a></li>
           <li><a href="../demo/app.html">App mockups</a></li>
@@ -779,13 +794,14 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; <span data-year></span> Tradies Bureau. All rights reserved.</span>
-      <span>Not legal or building advice</span>
+      <span>&copy; <span data-year>2026</span> Tradies Bureau. Not legal or building advice.</span>
+      <span class="footer-meta"><a href="../privacy.html">Privacy</a><span class="version-info" data-version-info></span></span>
     </div>
   </div>
 </footer>
 
 <script src="../js/main.js"></script>
+<script src="../js/version.js"></script>
 <script src="../js/house.js"></script>
 <script src="../js/mockups.js"></script>
 </body>

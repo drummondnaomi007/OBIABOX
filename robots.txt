@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://drummondnaomi007.github.io/OBIABOX/sitemap.xml
