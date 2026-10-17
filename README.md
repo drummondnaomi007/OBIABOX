@@ -24,6 +24,8 @@ demo/project.html     Sample neighbour page, which is what the QR code opens (de
 portal/index.html     Demo portal: the working OBIABOX app with sample data, for review
 portal/portal.js      Demo portal engine: sample data, screens, actions (saved in localStorage)
 portal/portal.css     Demo portal layout
+portal/portal-base.css  Demo portal colours (light + dark) and shared pieces
+scripts/build-portal-artifact.js  Bundles the portal into one file for sharing as an Artifact
 demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault, letterbox drop map, surveyor shared view
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
@@ -75,6 +77,12 @@ No Node? You can also double-click `index.html` to open the site straight in you
 - **Review notes:** the 📝 button on every screen saves notes tagged with that screen. **Copy all** or **Download (.txt)** to send them back. Reset keeps notes.
 - It carries the **app version** (`obiab-app-version`), so the footer and the version check cover it like the mockups.
 - It's marked `noindex` so search engines skip it.
+
+### Sharing the portal as a claude.ai Artifact
+
+`node scripts/build-portal-artifact.js` bundles the portal into one self-contained file (`dist/obiabox-portal.html`): styles and scripts inlined, logos embedded, links pointing at the live site, footer showing the current versions. Publish that file as an Artifact. There, reviewers get a **💬 Comment on this screen** button (page comments everyone reviewing can see) and downloads ask before saving. Rebuild and republish after any portal change or version bump.
+
+Published copy: https://claude.ai/artifact/H74ETZshUCZ2NbYf4MKf3T (private until shared from its Share menu).
 
 ## Waitlist form and visitor stats
 

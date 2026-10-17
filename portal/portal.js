@@ -10,6 +10,13 @@
   var STORE_KEY = "obiabox-portal-demo-v1";
   var memory = null;
 
+  // Where the rest of the site lives. On GitHub Pages it's next door ("../");
+  // the single-file Artifact build sets absolute links and inline images.
+  var ENV = window.OBIAB_PORTAL || {};
+  var SITE = ENV.siteBase || "../";
+  var LOGO = ENV.logo || SITE + "assets/logo.svg";
+  var MARK = ENV.mark || SITE + "assets/favicon.svg";
+
   // ---------- helpers ----------
 
   var DAY = 86400000;
@@ -329,7 +336,9 @@
     editing: null,
     composeType: "Trucks",
     shareLink: null,
-    setup: false
+    setup: false,
+    confirmReset: false,
+    commentsReady: false
   };
 
   var ROUTES = [
@@ -490,12 +499,23 @@
 
   // ---------- shell ----------
 
+  function confirmStrip() {
+    if (!ui.confirmReset) return "";
+    return (
+      '<div class="pt-confirm" role="alertdialog" aria-labelledby="pt-confirm-text">' +
+      '<p id="pt-confirm-text"><strong>Reset the demo?</strong> Your changes to the sample project will be lost. Review notes are kept.</p>' +
+      '<div class="pt-actions"><button type="button" class="btn btn-primary pt-btn-sm" data-action="reset-yes">Reset demo</button>' +
+      '<button type="button" class="btn btn-outline pt-btn-sm" data-action="reset-no">Keep my changes</button></div></div>'
+    );
+  }
+
   function renderLogin() {
     var p = state.project;
     return (
+      confirmStrip() +
       '<main id="main" class="pt-login" tabindex="-1">' +
       '<div class="pt-login-card">' +
-      '<div class="pt-login-brand"><img src="../assets/favicon.svg" alt="" width="40" height="40"><span>Owner Builder in a Box</span></div>' +
+      '<div class="pt-login-brand"><img src="' + MARK + '" alt="" width="40" height="40"><span>Owner Builder in a Box</span></div>' +
       "<h1>Sign in</h1>" +
       '<p class="pt-muted">In the real app you\'d get a sign-in link by email, so there\'s no password to remember. For this demo, pick how you\'d like to start.</p>' +
       '<form data-form="signin" class="pt-form">' +
@@ -526,14 +546,14 @@
     var nav = ROUTES.map(function (r) {
       var current = r.id === ui.route;
       return (
-        '<li><a href="#/' + r.id + '"' + (current ? ' aria-current="page" class="on"' : "") + ' data-nav="' + r.id + '">' +
+        '<li><a href="#' + r.id + '"' + (current ? ' aria-current="page" class="on"' : "") + ' data-nav="' + r.id + '">' +
         '<span class="pt-nav-icon" aria-hidden="true">' + r.icon + "</span><span>" + r.label + "</span>" + badgeFor(r.id) + "</a></li>"
       );
     }).join("");
     return (
       '<div class="pt-shell' + (ui.navOpen ? " nav-open" : "") + '">' +
       '<nav class="pt-side" id="pt-nav" aria-label="Portal">' +
-      '<div class="pt-brand"><img src="../assets/logo.svg" alt="" width="34" height="34"><span>OBIABOX<small>Owner Builder in a Box</small></span></div>' +
+      '<div class="pt-brand"><img src="' + LOGO + '" alt="" width="34" height="34"><span>OBIABOX<small>Owner Builder in a Box</small></span></div>' +
       '<div class="pt-proj"><strong>' + esc(state.project.address) + "</strong><span>" + esc(state.project.suburb) + "</span></div>" +
       '<ul class="pt-nav">' + nav + "</ul>" +
       "</nav>" +
@@ -544,7 +564,7 @@
       '<button type="button" class="pt-notes-btn" data-action="toggle-notes" aria-expanded="' + (ui.notesOpen ? "true" : "false") + '" aria-controls="pt-notes">📝 Review notes' + (state.notes.length ? ' <span class="pt-badge">' + state.notes.length + "</span>" : "") + "</button>" +
       '<button type="button" class="pt-linkbtn pt-signout" data-action="sign-out">Sign out</button>' +
       "</header>" +
-      '<main id="main" class="pt-main" tabindex="-1">' + content + "</main>" +
+      '<main id="main" class="pt-main" tabindex="-1">' + confirmStrip() + content + "</main>" +
       "</div>" +
       renderNotes() +
       "</div>"
@@ -569,7 +589,12 @@
     return (
       '<aside class="pt-notes" id="pt-notes" aria-label="Review notes"' + (ui.notesOpen ? "" : " hidden") + ">" +
       '<div class="pt-notes-head"><h2>Review notes</h2><button type="button" class="pt-linkbtn" data-action="toggle-notes" aria-label="Close review notes">✕</button></div>' +
-      '<p class="pt-muted pt-small">Spotted something? Leave a note. It\'s tagged with the screen you\'re on (' + esc(route ? route.label : ui.route) + "). Notes stay in this browser until you copy or download them, and Reset demo keeps them.</p>" +
+      (ui.commentsReady
+        ? '<div class="pt-comment-box"><p><strong>Send feedback to the team.</strong> Your comment is pinned to this screen (' + esc(route ? route.label : ui.route) + ") and everyone reviewing can see it.</p>" +
+          '<button type="button" class="btn btn-primary pt-btn-sm" data-action="comment">💬 Comment on this screen</button></div>' +
+          '<p class="pt-label">Private notes</p>'
+        : "") +
+      '<p class="pt-muted pt-small">Spotted something? Leave a note. It\'s tagged with the screen you\'re on (' + esc(route ? route.label : ui.route) + "). Notes stay in this browser until you copy " + (ui.commentsReady ? "them" : "or download them") + ", and Reset demo keeps them.</p>" +
       '<form data-form="note" class="pt-form">' +
       '<label for="pt-note">Your note</label>' +
       '<textarea id="pt-note" name="text" rows="4" required placeholder="What works, what\'s confusing, what\'s missing?"></textarea>' +
@@ -613,7 +638,7 @@
     var dueHtml = due.length
       ? '<ul class="pt-list" data-due-list>' +
         due.slice(0, 7).map(function (i) {
-          return '<li><a href="#/' + i.route + '">' + esc(i.text) + "</a>" + pill(i.kind, i.badge) + "</li>";
+          return '<li><a href="#' + i.route + '">' + esc(i.text) + "</a>" + pill(i.kind, i.badge) + "</li>";
         }).join("") +
         "</ul>" +
         (due.length > 7 ? '<p class="pt-muted pt-small">+ ' + (due.length - 7) + " more on the other screens</p>" : "")
@@ -630,13 +655,13 @@
       card(
         "Compliance",
         '<div class="pt-score"><strong data-score>' + score.pct + "%</strong><span>" + score.ok + " of " + score.total + ' items current</span></div><div class="pt-bar"><span style="width:' + score.pct + '%"></span></div>' +
-        '<p><a href="#/compliance">See everything →</a></p>'
+        '<p><a href="#compliance">See everything →</a></p>'
       ) +
       card(
         "Neighbours",
         '<div class="pt-score"><strong>' + subs + "</strong><span>signed up for updates</span></div>" +
         (last ? '<p class="pt-muted">Last update: ' + esc(last.type) + " · " + fmt(last.when) + "</p>" : '<p class="pt-muted">No updates sent yet.</p>') +
-        '<a class="btn btn-primary pt-btn-sm" href="#/neighbours">Send an update</a>'
+        '<a class="btn btn-primary pt-btn-sm" href="#neighbours">Send an update</a>'
       ) +
       card(
         "Money",
@@ -644,15 +669,15 @@
           ? '<div class="pt-score"><strong>' + money(spent) + "</strong><span>committed of " + money(budget) + " budget</span></div>" +
             '<div class="pt-bar' + (spent > budget ? " over" : "") + '"><span style="width:' + Math.min(100, Math.round((spent / budget) * 100)) + '%"></span></div>' +
             (spent > budget ? '<p class="pt-warn">Over budget by ' + money(spent - budget) + "</p>" : '<p class="pt-muted">' + money(budget - spent) + " left to commit</p>")
-          : '<p class="pt-muted">Add a budget on the <a href="#/project">project screen</a> to track spending.</p>')
+          : '<p class="pt-muted">Add a budget on the <a href="#project">project screen</a> to track spending.</p>')
       ) +
       card(
         "Quick actions",
         '<div class="pt-quick">' +
-        '<a href="#/documents" class="pt-btn">📷 Add a document</a>' +
-        '<a href="#/inspections" class="pt-btn">🔍 Inspections</a>' +
-        '<a href="#/neighbours" class="pt-btn">✉ Notify neighbours</a>' +
-        '<a href="#/trades" class="pt-btn">👷 Trades</a>' +
+        '<a href="#documents" class="pt-btn">📷 Add a document</a>' +
+        '<a href="#inspections" class="pt-btn">🔍 Inspections</a>' +
+        '<a href="#neighbours" class="pt-btn">✉ Notify neighbours</a>' +
+        '<a href="#trades" class="pt-btn">👷 Trades</a>' +
         "</div>"
       ) +
       "</div>"
@@ -728,7 +753,7 @@
       "</ol>";
     var detail;
     if (!next) {
-      detail = '<p class="pt-empty">All inspections passed. Time for handover: collect your certificates on the <a href="#/documents">documents screen</a>.</p>';
+      detail = '<p class="pt-empty">All inspections passed. Time for handover: collect your certificates on the <a href="#documents">documents screen</a>.</p>';
     } else if (next.status === "booked") {
       detail =
         "<h3>" + esc(next.name) + " inspection: booked</h3>" +
@@ -957,7 +982,7 @@
       '<div class="pt-street"><div class="pt-side-col"><span class="pt-label">Smith St (odd)</span>' + DROP_LOTS.left.map(function (x) { return lotBtn("s" + x, x + " Smith St"); }).join("") + "</div>" +
       '<div class="pt-side-col"><span class="pt-label">Smith St (even)</span>' + DROP_LOTS.right.slice(0, 1).map(function (x) { return lotBtn("s" + x, x + " Smith St"); }).join("") + lotBtn("s10", "10 Smith St") + '<span class="pt-lot you">12 · you</span>' + DROP_LOTS.right.slice(2).map(function (x) { return lotBtn("s" + x, x + " Smith St"); }).join("") + "</div>" +
       '<div class="pt-side-col"><span class="pt-label">Back Lane</span>' + DROP_LOTS.rear.map(function (x) { return lotBtn("b" + x, x + " Back Ln"); }).join("") + "</div></div>" +
-      '<div class="pt-actions"><button type="button" class="btn btn-primary" data-action="drop-log">Log this drop</button><a class="btn btn-outline" href="../demo/notice.html" target="_blank" rel="noopener">Print the notice</a></div>'
+      '<div class="pt-actions"><button type="button" class="btn btn-primary" data-action="drop-log">Log this drop</button><a class="btn btn-outline" href="' + SITE + 'demo/notice.html" target="_blank" rel="noopener">See the printable notice</a></div>'
     );
     return (
       pageHead("Neighbours", "Tell the street before the noisy days. Every send is logged as proof you gave notice.") +
@@ -1074,7 +1099,7 @@
     var share = ui.shareLink
       ? '<div class="pt-share-link"><p><strong>Read-only link created</strong> for ' + esc(ui.shareLink.who) + ", expires " + fmt(ui.shareLink.expires) + ".</p>" +
         '<code data-share-url>' + esc(ui.shareLink.url) + "</code>" +
-        '<p class="pt-muted pt-small">Demo link: in the app this opens the surveyor\'s view. <a href="../demo/app.html#surveyor">See what they\'d see</a>.</p>' +
+        '<p class="pt-muted pt-small">Demo link: in the app this opens the surveyor\'s view. <a href="' + SITE + 'demo/app.html#surveyor" target="_blank" rel="noopener">See what they\'d see</a>.</p>' +
         '<button type="button" class="pt-btn" data-action="share-off">Turn off link</button></div>'
       : '<form class="pt-form" data-form="share"><label>Share with <input name="who" required value="' + esc(p.surveyor || "") + '" placeholder="e.g. your building surveyor"></label>' +
         '<fieldset class="pt-fieldset"><legend>Folders</legend>' +
@@ -1197,6 +1222,23 @@
   }
 
   function download(filename, text, type) {
+    if (window.claude && typeof window.claude.use === "function") {
+      window.claude.use("downloads").then(function (dl) {
+        if (!dl) {
+          toast("Downloads aren't available here. Use Copy instead.");
+          return;
+        }
+        dl.save({ filename: filename, data: text }).then(
+          function (r) {
+            if (r && r.status === "saved") toast("Saved " + filename + ".");
+          },
+          function (e) {
+            if (e && e.code === "unavailable") toast("Downloads aren't available here. Use Copy instead.");
+          }
+        );
+      });
+      return;
+    }
     var blob = new Blob([text], { type: type });
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
@@ -1250,7 +1292,17 @@
       render(true);
     },
     "reset-demo": function () {
-      if (!window.confirm("Reset the demo? Your changes to the sample project will be lost. Review notes are kept.")) return;
+      ui.confirmReset = true;
+      render();
+      var yes = app.querySelector('[data-action="reset-yes"]');
+      if (yes) yes.focus();
+    },
+    "reset-no": function () {
+      ui.confirmReset = false;
+      render();
+    },
+    "reset-yes": function () {
+      ui.confirmReset = false;
       var keepNotes = state.notes;
       var keepUser = state.user;
       var wasStarted = state.started;
@@ -1270,6 +1322,34 @@
       });
       commit();
     },
+    comment: function () {
+      var h = app.querySelector("main h1");
+      if (!h || !window.claude) return;
+      window.claude.use("comments").then(function (c) {
+        if (!c) {
+          ui.commentsReady = false;
+          render();
+          return;
+        }
+        var range = document.createRange();
+        range.selectNodeContents(h);
+        c.openComposer({ range: range }).then(
+          function (r) {
+            if (r && r.opened) {
+              ui.notesOpen = false;
+              render();
+            }
+          },
+          function (e) {
+            if (e && e.code === "unavailable") {
+              ui.commentsReady = false;
+              render();
+              toast("Comments aren't open to you on this page. Use private notes and copy them instead.");
+            }
+          }
+        );
+      });
+    },
     "copy-notes": function () {
       var text = notesText();
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1287,7 +1367,7 @@
     },
     "download-notes": function () {
       download("obiabox-review-notes.txt", notesText(), "text/plain");
-      toast("Notes downloaded.");
+      if (!window.claude) toast("Notes downloaded.");
     },
     "comp-edit": function (el) {
       ui.editing = el.getAttribute("data-id");
@@ -1487,7 +1567,7 @@
       var copy = JSON.parse(JSON.stringify(state));
       delete copy.notes;
       download("obiabox-build-file.json", JSON.stringify(copy, null, 2), "application/json");
-      toast("Build file downloaded. In the app this is a zip of every document with an index.");
+      if (!window.claude) toast("Build file downloaded. In the app this is a zip of every document with an index.");
     },
     "share-off": function () {
       ui.shareLink = null;
@@ -1510,7 +1590,7 @@
       state.user = v.email || "";
       state.started = true;
       ui.route = "dashboard";
-      if (window.location.hash !== "#/dashboard") window.location.hash = "#/dashboard";
+      if (window.location.hash !== "#dashboard") window.location.hash = "#dashboard";
       save();
       render(true);
     },
@@ -1521,7 +1601,7 @@
       state.started = true;
       ui.setup = false;
       ui.route = "dashboard";
-      if (window.location.hash !== "#/dashboard") window.location.hash = "#/dashboard";
+      if (window.location.hash !== "#dashboard") window.location.hash = "#dashboard";
       save();
       render(true);
       toast("Project created. Start with the items marked red.");
@@ -1647,6 +1727,8 @@
   });
 
   window.addEventListener("hashchange", function () {
+    // The skip link (#main) jumps to the content; it isn't a screen.
+    if (window.location.hash === "#main") return;
     ui.route = routeFromHash();
     ui.navOpen = false;
     ui.editing = null;
@@ -1655,4 +1737,14 @@
 
   ui.route = routeFromHash();
   render();
+
+  // On the shared Artifact, offer page comments when this viewer can use them.
+  if (window.claude && typeof window.claude.use === "function") {
+    window.claude.use("comments").then(function (c) {
+      if (c) {
+        ui.commentsReady = true;
+        render();
+      }
+    });
+  }
 })();

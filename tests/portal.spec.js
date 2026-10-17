@@ -174,8 +174,16 @@ test.describe("demo portal", () => {
     await page.getByRole("button", { name: "Add note" }).click();
 
     await page.keyboard.press("Escape");
-    page.once("dialog", (d) => d.accept());
+    // Reset asks in the page first; "Keep my changes" leaves everything alone.
     await page.locator(".pt-demo-bar").getByRole("button", { name: "Reset demo" }).click();
+    const confirm = page.locator(".pt-confirm");
+    await expect(confirm).toBeVisible();
+    await confirm.getByRole("button", { name: "Keep my changes" }).click();
+    await expect(confirm).toHaveCount(0);
+    await expect(page.locator("[data-share-url]")).toBeVisible();
+
+    await page.locator(".pt-demo-bar").getByRole("button", { name: "Reset demo" }).click();
+    await page.locator(".pt-confirm").getByRole("button", { name: "Reset demo" }).click();
     await expect(page.locator("[data-toast]")).toContainText("Demo reset");
     await expect(page.locator(".pt-notes-btn .pt-badge")).toHaveText("1");
   });
@@ -233,7 +241,8 @@ test("the portal works on a phone with the menu button", async ({ browser }) => 
   await context.close();
 });
 
-test("the portal has no automatically detectable accessibility problems", async ({ page }) => {
+for (const scheme of ["light", "dark"]) test(`the portal has no automatically detectable accessibility problems (${scheme})`, async ({ page }) => {
+  await page.emulateMedia({ colorScheme: scheme });
   await page.goto("portal/index.html");
   await page.evaluate(() => localStorage.removeItem("obiabox-portal-demo-v1"));
   await page.reload();

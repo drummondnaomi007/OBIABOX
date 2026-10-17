@@ -1,0 +1,254 @@
+/* OBIABOX demo portal: base tokens and shared components (light + dark).
+   Layout: app shell — dark sidebar, light work surface, cards; brand stays
+   burnt orange in both themes, text accents lighten in dark mode. */
+
+:root {
+  --bg: #F6F3EF;
+  --surface: #FFFFFF;
+  --surface-2: #FBF8F5;
+  --surface-3: #F4F1EE;
+  --line: #EFE4DB;
+  --line-2: #E5D8CC;
+  --line-3: #F5E6DA;
+  --field: #DCCFC4;
+  --ink-900: #1F2933;
+  --ink: #20242b;
+  --muted: #5B6670;
+  --brand-600: #C2410C;
+  --brand-500: #F97316;
+  --brand-text: #C2410C;
+  --brand-50: #FFF3EA;
+  --on-brand: #FFFFFF;
+  --green: #1E7B3A;
+  --green-50: #E6F4EA;
+  --green-line: #b9dcc4;
+  --red: #a93226;
+  --red-50: #fbe3e0;
+  --red-line: #e9b9b2;
+  --amber-text: #8a5a0a;
+  --amber-50: #fdf2df;
+  --side: #1F2933;
+  --side-fg: #FFFFFF;
+  --side-ink: #D9DEE3;
+  --side-ink-2: #B8C0C7;
+  --side-hover: rgba(255, 255, 255, 0.08);
+  --side-panel: rgba(255, 255, 255, 0.06);
+  --badge: #F97316;
+  --badge-ink: #1F2933;
+  --tb-ink: #0B6E8F;
+  --tb-bg: #e8f1f6;
+  --shadow: rgba(31, 41, 51, 0.4);
+  --radius: 10px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161C22;
+    --surface: #1F2730;
+    --surface-2: #232C36;
+    --surface-3: #2A343F;
+    --line: #2F3A45;
+    --line-2: #3A4651;
+    --line-3: #2B3540;
+    --field: #46525E;
+    --ink-900: #F2F4F6;
+    --ink: #E3E7EB;
+    --muted: #A6B0BA;
+    --brand-600: #C2410C;
+    --brand-500: #FB923C;
+    --brand-text: #FDA466;
+    --brand-50: #3A2418;
+    --on-brand: #FFFFFF;
+    --green: #6EE79A;
+    --green-50: #14321F;
+    --green-line: #2C5E3D;
+    --red: #FF9A8F;
+    --red-50: #3B1A17;
+    --red-line: #6B2E28;
+    --amber-text: #FCD068;
+    --amber-50: #3A2C0F;
+    --side: #10151A;
+    --side-fg: #FFFFFF;
+    --side-ink: #C9D0D7;
+    --side-ink-2: #9AA4AE;
+    --side-hover: rgba(255, 255, 255, 0.07);
+    --side-panel: rgba(255, 255, 255, 0.05);
+    --badge: #FB923C;
+    --badge-ink: #10151A;
+    --tb-ink: #8FD8F5;
+    --tb-bg: #0E2A36;
+    --shadow: rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #161C22;
+  --surface: #1F2730;
+  --surface-2: #232C36;
+  --surface-3: #2A343F;
+  --line: #2F3A45;
+  --line-2: #3A4651;
+  --line-3: #2B3540;
+  --field: #46525E;
+  --ink-900: #F2F4F6;
+  --ink: #E3E7EB;
+  --muted: #A6B0BA;
+  --brand-600: #C2410C;
+  --brand-500: #FB923C;
+  --brand-text: #FDA466;
+  --brand-50: #3A2418;
+  --on-brand: #FFFFFF;
+  --green: #6EE79A;
+  --green-50: #14321F;
+  --green-line: #2C5E3D;
+  --red: #FF9A8F;
+  --red-50: #3B1A17;
+  --red-line: #6B2E28;
+  --amber-text: #FCD068;
+  --amber-50: #3A2C0F;
+  --side: #10151A;
+  --side-fg: #FFFFFF;
+  --side-ink: #C9D0D7;
+  --side-ink-2: #9AA4AE;
+  --side-hover: rgba(255, 255, 255, 0.07);
+  --side-panel: rgba(255, 255, 255, 0.05);
+  --badge: #FB923C;
+  --badge-ink: #10151A;
+  --tb-ink: #8FD8F5;
+  --tb-bg: #0E2A36;
+  --shadow: rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+a { color: inherit; }
+img { max-width: 100%; }
+h1, h2, h3 { text-wrap: balance; }
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  background: var(--side);
+  color: var(--side-fg);
+  padding: 10px 16px;
+  border-radius: 0 0 10px 10px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font: inherit;
+  font-weight: 700;
+  padding: 11px 20px;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-primary { background: var(--brand-600); color: var(--on-brand); }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-outline { border-color: var(--brand-600); color: var(--brand-text); background: transparent; }
+.btn:focus-visible { outline: 2px solid var(--brand-500); outline-offset: 2px; }
+
+.pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.pill-green { background: var(--green-50); color: var(--green); }
+.pill-amber { background: var(--amber-50); color: var(--amber-text); }
+.pill-red { background: var(--red-50); color: var(--red); }
+.pill-grey { background: var(--surface-3); color: var(--muted); }
+
+.tb-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--tb-ink);
+  background: var(--tb-bg);
+  border-radius: 999px;
+  padding: 1px 6px;
+  margin-left: 4px;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+.table-wrap { overflow-x: auto; }
+.table-wrap:focus-visible { outline: 2px solid var(--brand-500); outline-offset: 2px; }
+.register { width: 100%; border-collapse: collapse; background: var(--surface); }
+.register th,
+.register td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.register th { color: var(--ink-900); background: var(--surface-3); font-weight: 600; }
+
+/* Timeline of inspection stages */
+.mock-stagelist { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--line); }
+.mock-stagelist li { position: relative; padding: 0 0 18px 18px; display: flex; flex-direction: column; font-size: 0.9rem; }
+.mock-stagelist li span { font-size: 0.78rem; color: var(--muted); }
+.mock-stagelist li::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--line-2);
+  border: 2px solid var(--surface);
+}
+.mock-stagelist li.passed::before { background: var(--green); }
+.mock-stagelist li.passed span { color: var(--green); font-weight: 600; }
+.mock-stagelist li.current::before { background: var(--brand-600); box-shadow: 0 0 0 4px var(--brand-50); }
+.mock-stagelist li.current span { color: var(--brand-text); font-weight: 600; }
+.mock-stagelist li.defect::before { background: var(--red); }
+.mock-stagelist li.defect span { color: var(--red); font-weight: 600; }
+
+/* Line-drawn house (drawn by the house helper) */
+.house-line,
+.house-ghost { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+.house-line { stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.house-line.ground { stroke-width: 2; opacity: 0.6; }
+.house-line.stud { stroke-width: 1.5; opacity: 0.55; }
+.house-line.detail { stroke-width: 2; }
+.house-line.tick { stroke-width: 4; color: var(--green); }
+.house-ghost { stroke-width: 1.5; stroke-dasharray: 3 4; opacity: 0.25; }
+.house-ghost.tick { display: none; }
+.static-house { width: 100%; height: auto; }
+
+/* Footer version text */
+.footer-meta { display: inline-flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+.footer-meta a { color: inherit; }
+.version-info { display: inline-flex; align-items: center; gap: 8px; }
+.version-info a { color: inherit; }
+.version-pill { font-size: 0.7rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--side-panel); color: var(--side-ink); }
+.version-pill.in-sync { background: #1E7B3A; color: #FFFFFF; }
+.version-pill.out-of-sync { background: #e0a020; color: #1F2933; }
+.version-banner { position: relative; padding: 10px 48px 10px 16px; font-size: 0.92rem; text-align: center; background: var(--amber-50); color: var(--amber-text); }
+.version-banner a { color: inherit; font-weight: 700; }
+.version-banner-close { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font: inherit; font-size: 1.3rem; background: none; border: none; color: inherit; cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
