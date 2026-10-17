@@ -21,6 +21,9 @@ version.json          Website and app versions (single source of truth)
 sitemap.xml, robots.txt  For search engines
 demo/notice.html      Sample printable letterbox notice (with placeholder QR code)
 demo/project.html     Sample neighbour page, which is what the QR code opens (demo opt-in form)
+portal/index.html     Demo portal: the working OBIABOX app with sample data, for review
+portal/portal.js      Demo portal engine: sample data, screens, actions (saved in localStorage)
+portal/portal.css     Demo portal layout
 demo/app.html         App mockups: dashboard, notify neighbours, asset protection, dilapidation map, trades register, quote comparison, contract admin, inspection booking, document vault, letterbox drop map, surveyor shared view
 css/style.css         Tradies Bureau theme + owner-builder additions (timeline, register, print)
 js/main.js            Mobile nav, print button, demo-form handler
@@ -50,6 +53,28 @@ npm start
 That runs `scripts/serve.js`, a tiny built-in server with nothing to install. It works the same on Windows, Mac and Linux.
 
 No Node? You can also double-click `index.html` to open the site straight in your browser, or use the live site.
+
+## Demo portal (for review)
+
+`portal/index.html` is a working demo of the OBIABOX app. Reviewers sign in (no password; the email is optional) to a **sample build** at frame stage, or **start a new project**, and can use every screen:
+
+| Screen | Try |
+|---|---|
+| Dashboard | Build stage house, what's due next (worked out live), compliance score, neighbours, money vs budget |
+| Compliance | Add an item, update an expiry, remove one. Statuses update by date |
+| Inspections | Upload the truss certificate, pick a time, record Passed (releases the framer's payment, moves the build to lock-up) or Defects |
+| Trades & contracts | Register (insurance, WorkCover, certificates), compare and award waterproofing quotes, approve or query variations, approve payments |
+| Neighbours | Send an update (preview, subscribers), add a subscriber, do the letterbox drop |
+| Asset protection | Take the last before photos, step through to bond refunded |
+| Dilapidation | Upload reports, record copies given or access declined |
+| Documents | Folders, search, add documents (pick a suggested name to tick off the handover pack) |
+| Project & sharing | Edit details, create a read-only link for the surveyor, download the build file, reset |
+
+- **Sample dates are relative to today**, so "expires in 21 days" stays true whenever it's reviewed.
+- **Saved in the reviewer's browser only** (`localStorage`). **Reset demo** restores the sample project.
+- **Review notes:** the 📝 button on every screen saves notes tagged with that screen. **Copy all** or **Download (.txt)** to send them back. Reset keeps notes.
+- It carries the **app version** (`obiab-app-version`), so the footer and the version check cover it like the mockups.
+- It's marked `noindex` so search engines skip it.
 
 ## Waitlist form and visitor stats
 
@@ -83,7 +108,7 @@ After changing `js/config.js`, bump the site version (`npm run version:bump -- s
 Both the website and the app have a version number (like `0.5.0`). They live in one place, `version.json`:
 
 ```json
-{ "site": "0.6.0", "app": "0.5.0", "released": "2026-10-16", "appVersionUrl": null, "siteUrl": "https://drummondnaomi007.github.io/OBIABOX/" }
+{ "site": "0.6.1", "app": "0.6.0", "released": "2026-10-16", "appVersionUrl": null, "siteUrl": "https://drummondnaomi007.github.io/OBIABOX/" }
 ```
 
 - **site** is the website. Every page carries it in `<meta name="obiab-site-version">`.
@@ -144,6 +169,7 @@ npm run test:report      # open the last HTML report (after a CI-style run)
 | `tests/mockups.spec.js` | All 11 app mockups: chips, map, quotes, variations, inspection booking, vault, letterbox drop, surveyor view |
 | `tests/version.spec.js` | Footer versions, In sync / Out of sync, out-of-date and mismatch banners, live app check, What's new |
 | `tests/a11y.spec.js` | Automated accessibility checks (WCAG 2.1 AA, using axe) on every page, desktop and phone |
+| `tests/portal.spec.js` | Demo portal: every screen, all main flows, saving after reload, review notes, reset, new project, phone menu, accessibility on every screen |
 | `tests/integrations.spec.js` | Waitlist form (email fallback, Tally embed, form service success and failure) and visitor stats (on/off, Do Not Track, Global Privacy Control) |
 | `tests/edge-cases.spec.js` | No JavaScript, blocked browser storage, "find out more" paths, email fallback, share previews, sitemap, 404 |
 

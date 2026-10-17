@@ -136,7 +136,8 @@
       }
     }
 
-    // Floating build tracker: builds across pages.
+    // Floating build tracker: builds across pages. Pages can opt out (the portal).
+    if (document.body.hasAttribute("data-no-tracker")) return;
     var tracker = document.createElement("div");
     tracker.className = "build-tracker";
     var t = buildSvg("tracker-house", true);

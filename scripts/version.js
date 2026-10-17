@@ -23,7 +23,8 @@ const SEMVER = /^\d+\.\d+\.\d+$/;
 
 function htmlPages() {
   const pages = [];
-  for (const dir of ["", "demo"]) {
+  for (const dir of ["", "demo", "portal"]) {
+    if (!fs.existsSync(path.join(root, dir))) continue;
     for (const f of fs.readdirSync(path.join(root, dir))) {
       if (f.endsWith(".html")) pages.push(path.join(root, dir, f));
     }
@@ -74,8 +75,13 @@ function check() {
     }
   }
 
-  const app = metaValue(fs.readFileSync(appPage, "utf8"), "obiab-app-version");
-  if (app !== v.app) problems.push(`demo/app.html: app mockups are ${app || "missing"}, expected ${v.app}`);
+  // Every page that shows the app (the mockups and the demo portal) carries the app version.
+  const appPages = htmlPages().filter((p) => metaValue(fs.readFileSync(p, "utf8"), "obiab-app-version") !== null);
+  if (!appPages.includes(appPage)) problems.push("demo/app.html: app version tag is missing");
+  for (const p of appPages) {
+    const app = metaValue(fs.readFileSync(p, "utf8"), "obiab-app-version");
+    if (app !== v.app) problems.push(`${rel(p)}: shows app ${app}, expected ${v.app}`);
+  }
 
   const log = fs.existsSync(changelog) ? fs.readFileSync(changelog, "utf8") : "";
   const first = log.match(/data-version="([^"]+)"/);
@@ -119,8 +125,10 @@ function bump(which, part) {
   v.released = new Date().toISOString().slice(0, 10);
   fs.writeFileSync(versionFile, JSON.stringify(v, null, 2) + "\n");
 
-  for (const page of htmlPages()) setMeta(page, "obiab-site-version", v.site);
-  setMeta(appPage, "obiab-app-version", v.app);
+  for (const page of htmlPages()) {
+    setMeta(page, "obiab-site-version", v.site);
+    if (metaValue(fs.readFileSync(page, "utf8"), "obiab-app-version") !== null) setMeta(page, "obiab-app-version", v.app);
+  }
 
   const log = fs.readFileSync(changelog, "utf8");
   const entry =
