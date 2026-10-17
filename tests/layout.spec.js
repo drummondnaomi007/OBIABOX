@@ -72,3 +72,26 @@ test("internal links point at pages that exist", async ({ page, request }) => {
     }
   }
 });
+
+// On phones every button and stand-alone link is at least 44px tall,
+// so it can be tapped with a thumb. Links inside sentences are exempt.
+test("tap targets are at least 44px tall on phones", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "phone-only check");
+  const small = [];
+  for (const path of ALL_PAGES) {
+    await page.goto(path);
+    const found = await page.evaluate(() => {
+      const out = [];
+      for (const el of document.querySelectorAll("a[href], button, input, select, summary")) {
+        const r = el.getBoundingClientRect();
+        if (!r.width || getComputedStyle(el).visibility === "hidden") continue;
+        if (el.tagName === "A" && getComputedStyle(el).display === "inline" && el.closest("p, td, li > span")) continue;
+        if (el.matches("input[type=checkbox], input[type=radio]") && el.closest("label")) continue;
+        if (r.height < 43.5) out.push(`${el.tagName.toLowerCase()} "${(el.textContent || el.name || "").trim().slice(0, 30)}" is ${Math.round(r.height)}px`);
+      }
+      return out;
+    });
+    small.push(...found.map((f) => `${path}: ${f}`));
+  }
+  expect(small).toEqual([]);
+});
